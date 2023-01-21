@@ -939,27 +939,27 @@ section {
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
-.Customers h3 {
+.about h3 {
   font-weight: 400;
   font-size: 26px;
 }
 
-.Customers ul {
+.about ul {
   list-style: none;
   padding: 0;
 }
 
-.Customers ul li {
+.about ul li {
   padding-bottom: 10px;
 }
 
-.Customers ul i {
+.about ul i {
   font-size: 20px;
   padding-right: 4px;
   color: #68A4C4;
 }
 
-.Customers p:last-child {
+.about p:last-child {
   margin-bottom: 0;
 }
 
