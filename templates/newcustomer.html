@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block title %}
+New customer
+{% endblock %}
+
+{% block content %}
+
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+    <h3>
+      Fill out the form with the customers information. Then press "Save"
+   </h3>  
+   <form method="post">
+    {{ formen.csrf_token }}
+    {{ formen.FirstName(placeholder="Enter firstname") }} <br><br>
+    {{ formen.LastName(placeholder="Enter lastname") }}<br><br>
+    {{ formen.City(placeholder="Enter city") }}<br><br>
+    {{ formen.Streetaddress(placeholder="Enter streetaddress") }}<br><br>
+    {{ formen.Zipcode(placeholder="Enter zipcode") }}<br><br>
+    {{ formen.Country(placeholder="Enter country") }}<br><br>
+    {{ formen.SocialSecurityNumber(placeholder="Enter social security number") }}<br><br>
+    {{ formen.age(placeholder="Select age") }}<br><br>
+
+
+     {{ formen.countryCode() }}
+    <input type="submit" value="Save">
+   </form>
+{% endblock %}    

@@ -4,14 +4,23 @@ from flask_migrate import Migrate, upgrade
 from model import Customer, Account, Transaction
 from model import db, seedData
 from forms import NewCustomerForm
+import os
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
+app.config['SECRET_KEY'] = os.urandom(32)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
  
- 
+# import os
+# SECRET_KEY = os.urandom(32)
+# app.config['SECRET_KEY'] = SECRET_KEY
+
+# app.config.update(dict(
+#     SECRET_KEY="powerful secretkey",
+#     WTF_CSRF_SECRET_KEY="a csrf secret key"
+# ))
 
 # @app.route("/")
 # def startpage():
@@ -76,10 +85,15 @@ def newcustomer():
     if form.validate_on_submit():
         #spara i databas
         customer = Customer()
-        customer.Name = form.name.data
+        customer.FirstName = form.FirstName.data
+        customer.LastName = form.FirstName.data
         customer.City = form.city.data
         customer.TelephoneCountryCode = 1
         customer.Telephone = "321323"
+        customer.Streetaddress = form.Streetaddress.data
+        customer.Zipcode = form.Zipcode.data
+        customer.Country = form.Country.data
+        customer.SocialSecurityNumber = form.SocialSecurityNumber.data
         db.session.add(customer)
         db.session.commit()
         return redirect("/customers" )
@@ -111,6 +125,6 @@ def transaction():
 if __name__  == "__main__":
     with app.app_context():
     #     upgrade()
-    
+
     # seedData(db)
         app.run(debug=True)
