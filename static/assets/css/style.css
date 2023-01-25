@@ -57,8 +57,8 @@ h6,
 }
 
 .back-to-top:hover {
-  background: #85b6cf;
-  color: #fff;
+  background: #000000;
+  color: rgb(0, 0, 0);
 }
 
 .back-to-top.active {
@@ -95,10 +95,10 @@ h6,
   letter-spacing: 3px;
   text-transform: uppercase;
 }
-
+/* laurentzen uppe i vänsta hörnet */
 #header .logo h1 a,
 #header .logo h1 a:hover {
-  color: #fff;
+  color: rgb(215, 194, 115);
   text-decoration: none;
 }
 
@@ -133,7 +133,7 @@ h6,
 .navbar li {
   position: relative;
 }
-
+/* startpage, customers, newcustomers osv, texten */
 .navbar a,
 .navbar a:focus {
   display: flex;
@@ -171,7 +171,7 @@ h6,
   z-index: 99;
   opacity: 0;
   visibility: hidden;
-  background: #fff;
+  background: rgb(0, 0, 0);
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
   transition: 0.3s;
 }
@@ -230,7 +230,7 @@ h6,
 * Mobile Navigation 
 */
 .mobile-nav-toggle {
-  color: #fff;
+  color: rgb(5, 3, 3);
   font-size: 28px;
   cursor: pointer;
   display: none;
@@ -273,7 +273,7 @@ h6,
   bottom: 15px;
   left: 15px;
   padding: 10px 0;
-  background-color: #fff;
+  background-color: rgb(0, 0, 0);
   overflow-y: auto;
   transition: 0.3s;
 }
@@ -304,7 +304,7 @@ h6,
   z-index: 99;
   opacity: 1;
   visibility: visible;
-  background: #fff;
+  background: rgb(8, 6, 6);
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 }
 
@@ -347,7 +347,7 @@ h6,
   top: 0;
   width: 130%;
   height: 95%;
-  background: linear-gradient(to right, rgba(30, 67, 86, 0.8), rgba(30, 67, 86, 0.6)), url("../img/hero-bg.jpg") center top no-repeat;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(13, 30, 38, 0.6)), url("../img/backgroundpicturewebsite.jpg") center top no-repeat;
   z-index: 0;
   border-radius: 0 0 50% 50%;
   transform: translateX(-50%) rotate(0deg);
@@ -360,7 +360,7 @@ h6,
   top: 0;
   width: 130%;
   height: 96%;
-  background: #68A4C4;
+  background: #3c5b6c;
   opacity: 0.3;
   z-index: 0;
   border-radius: 0 0 50% 50%;
@@ -378,20 +378,20 @@ h6,
   left: 0;
   right: 0;
 }
-
+/* under: welcome to laurentzen bank */
 #hero h2 {
-  color: #fff;
+  color: rgb(215, 194, 115);
   margin-bottom: 30px;
   font-size: 48px;
   font-weight: 700;
 }
-
+/* under: designed to make your job easier */
 #hero p {
   width: 80%;
   -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
   margin: 0 auto 30px auto;
-  color: #fff;
+  color: rgb(189, 165, 165);
 }
 
 #hero .carousel-control-prev,
@@ -552,7 +552,7 @@ section {
 }
 
 .section-bg {
-  background-color: #f3f8fa;
+  background-color: #ffffff;
 }
 
 .section-title {
@@ -574,7 +574,7 @@ section {
   display: block;
   width: 120px;
   height: 1px;
-  background: #ddd;
+  background: rgb(255, 255, 255);
   bottom: 1px;
   left: calc(50% - 60px);
 }
@@ -599,7 +599,7 @@ section {
 --------------------------------------------------------------*/
 .breadcrumbs {
   padding: 15px 0;
-  background-color: #f3f8fa;
+  background-color: #ffffff;
   min-height: 40px;
 }
 
@@ -623,7 +623,7 @@ section {
 .breadcrumbs ol li+li::before {
   display: inline-block;
   padding-right: 10px;
-  color: #6c757d;
+  color: #66727d;
   content: "/";
 }
 
@@ -1032,7 +1032,7 @@ section {
 .testimonials .testimonial-item .testimonial-img {
   width: 120px;
   border-radius: 50%;
-  border: 4px solid #fff;
+  border: 4px solid rgb(255, 255, 255);
   margin: 0 auto;
 }
 
@@ -1081,7 +1081,7 @@ section {
 .testimonials .swiper-pagination .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   opacity: 1;
   border: 1px solid #68A4C4;
 }
@@ -1134,7 +1134,7 @@ section {
 }
 
 .service-details .card-title a {
-  color: #1e4356;
+  color: #3f3434;
   transition: 0.3s;
 }
 
@@ -1177,7 +1177,7 @@ section {
   padding: 40px;
   margin-bottom: 30px;
   box-shadow: 0px 0px 30px rgba(73, 78, 92, 0.15);
-  background: #fff;
+  background: rgb(255, 255, 255);
   text-align: center;
 }
 
@@ -1558,7 +1558,7 @@ section {
 
 .contact .php-email-form .error-message {
   display: none;
-  color: #fff;
+  color: rgb(255, 254, 254);
   background: #ed3c0d;
   text-align: left;
   padding: 15px;
@@ -1593,7 +1593,7 @@ section {
   height: 24px;
   margin: 0 10px -6px 0;
   border: 3px solid #18d26e;
-  border-top-color: #eee;
+  border-top-color: rgb(253, 253, 253);
   -webkit-animation: animate-loading 1s linear infinite;
   animation: animate-loading 1s linear infinite;
 }
@@ -2174,9 +2174,9 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #0b212d;
+  background: #2b3e8f;
   padding: 0 0 30px 0;
-  color: #fff;
+  color: rgb(255, 255, 255);
   font-size: 14px;
 }
 
@@ -2260,7 +2260,7 @@ section {
   font-size: 18px;
   display: inline-block;
   background: #1e4356;
-  color: #fff;
+  color: rgb(255, 255, 255);
   line-height: 1;
   padding: 8px 0;
   margin-right: 4px;
@@ -2340,7 +2340,7 @@ section {
   padding-top: 10px;
   text-align: center;
   font-size: 13px;
-  color: #fff;
+  color: rgb(10, 7, 7);
 }
 
 #footer .credits a {
