@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import Customer, Account, Transaction
 from model import db, seedData
-
+from forms import NewCustomerForm
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
@@ -70,7 +70,21 @@ def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
                             q=q )
 
 
-
+@app.route("/newcustomer", methods=['GET', 'POST'])
+def newcustomer():
+    form = NewCustomerForm()
+    if form.validate_on_submit():
+        #spara i databas
+        customer = Customer()
+        customer.Name = form.name.data
+        customer.City = form.city.data
+        customer.TelephoneCountryCode = 1
+        customer.Telephone = "321323"
+        db.session.add(customer)
+        db.session.commit()
+        return redirect("/customers" )
+    return render_template("newcustomer.html", formen=form )
+    
 
 
 

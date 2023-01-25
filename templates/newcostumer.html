@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block title %}
+New customer
+{% endblock %}
+
+{% block content %}
+
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+   <form method="post">
+    {{ formen.csrf_token }}
+    {{ formen.name(placeholder="Enter name") }}
+    {{ formen.city(placeholder="Enter city") }}
+    {{ formen.age() }}
+
+     <h3>
+        hej
+     </h3>  
+     {{ formen.countryCode() }}
+    <input type="submit" value="Spara">
+   </form>
+{% endblock %}    
