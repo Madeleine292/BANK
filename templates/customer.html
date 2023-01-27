@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block title %}
+
+Kundsida {{ customer.GivenName}} {{ customer.Surname }}
+
+{% endblock %}
+
+{% block head %}
+<h1>Laurentzèn</h1>
+<h4>Bank</h4>
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ customer.GivenName }} {{ customer.Surname }}</h1>
+
+{% endblock %}

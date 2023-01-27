@@ -105,10 +105,15 @@ def newcustomer():
 
 
 
-@app.route("/customer")
-def customer():
-    customer = Customer.query.all()
-    return render_template("customers.html", CUSTOMER=customer)
+# @app.route("/customer")
+# def customer():
+#     customer = Customer.query.all()
+#     return render_template("customers.html", CUSTOMER=customer)
+
+@app.route("/customer/<id>")
+def customerpage(id):
+    customer = Customer.query.filter_by(Id = id).first()
+    return render_template("customer.html", customer=customer )
 
 
 

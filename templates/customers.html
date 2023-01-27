@@ -33,14 +33,7 @@
             <td>{{ customer.GivenName }}</td>
             <td>{{ customer.City }}</td>
             <td>
-                <a class="customerlink colororange" href="#"> Se mer</a>
-                <!-- <form method="get">
-                    <input class="btn" type=submit value="Se mer">
-                </form>
-            
-                <a href="{{  url_for('transaction') }}"> -->
-                    
-            
+                <a class="customerlink colororange" href="/customer/{{customer.Id}}">Se mer</a>                              
             </td>
         </tr>
         {% endfor %}
@@ -51,9 +44,9 @@
                     <a class="btn"
                         href="/customers?page={{ page - 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
                         Prev
-                    </a>
-                    {% endif %}
+                    </a>                    
                 </td>
+                {% endif %}
                 <td></td>
                 <td>
                     {% if has_next %}
@@ -61,8 +54,8 @@
                         href="/customers?page={{ page + 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
                         Next
                     </a>
-                    {% endif %}
                 </td>
+                {% endif %}
             </tr>
         </tfooter>
       </table>
