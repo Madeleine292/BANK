@@ -85,15 +85,18 @@ def newcustomer():
     if form.validate_on_submit():
         #spara i databas
         customer = Customer()
-        customer.FirstName = form.FirstName.data
-        customer.LastName = form.FirstName.data
-        customer.City = form.city.data
-        customer.TelephoneCountryCode = 1
+        customer.GivenName = form.GivenName.data
+        customer.Surname = form.Surname.data
+        customer.City = form.City.data
+        customer.CountryCode = 1
         customer.Telephone = "321323"
         customer.Streetaddress = form.Streetaddress.data
         customer.Zipcode = form.Zipcode.data
         customer.Country = form.Country.data
-        customer.SocialSecurityNumber = form.SocialSecurityNumber.data
+        customer.NationalId = form.NationalId.data
+        customer.Birthday = form.Birthday.data
+        customer.EmailAddress = form.EmailAddress.data
+        customer.TelephoneCountryCode = form.TelephoneCountryCode.data
         db.session.add(customer)
         db.session.commit()
         return redirect("/customers" )
@@ -114,7 +117,7 @@ def account():
     account = Account.query.all()
     return render_template("customers.html", PRODUCTS=account)
 
-@app.route("/transaction/<id>")
+@app.route("/transaction", methods=['GET'])
 def transaction():
     transaction = Transaction.query.all()
     return render_template("customers.html", TRANSACTION=transaction)
@@ -126,5 +129,5 @@ if __name__  == "__main__":
     with app.app_context():
     #     upgrade()
 
-    # seedData(db)
+        # seedData(db)
         app.run(debug=True)

@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import Form, BooleanField, StringField, PasswordField, validators, ValidationError
+from wtforms import Form, BooleanField, StringField, PasswordField, validators, ValidationError, DateField
 from wtforms.fields import IntegerField, SelectField
+import datetime
 
 def emailContains(form, field):
     if not field.data.endswith('.se'):
@@ -8,12 +9,14 @@ def emailContains(form, field):
 
 
 class NewCustomerForm(FlaskForm):
-    FirstName = StringField('name', validators=[validators.DataRequired(), emailContains])
-    LastName = StringField('name', validators=[validators.DataRequired(), emailContains])
+    GivenName = StringField('name', validators=[validators.DataRequired()])
+    Surname = StringField('name', validators=[validators.DataRequired()])
     City = StringField('city', validators=[validators.DataRequired()])
     Streetaddress = StringField('streetaddress', validators=[validators.DataRequired()])
     Zipcode = IntegerField('zipcode', validators=[validators.DataRequired()])
     Country = StringField('streetaddress', validators=[validators.DataRequired()])
-    SocialSecurityNumber = IntegerField('zipcode', validators=[validators.DataRequired()])
-    age= IntegerField('age')
-    countryCode = SelectField('countryCode',choices=[('SE','+46'),('NO','+41'),('FI','+42')])
+    NationalId = IntegerField('zipcode', validators=[validators.DataRequired()])
+    CountryCode = SelectField('countryCode',choices=[('SE','+46'),('NO','+41'),('FI','+42')])
+    Birthday = DateField('Birthday', validators=[validators.DataRequired()])
+    EmailAddress = StringField('emailaddress', validators=[validators.DataRequired()])
+    TelephoneCountryCode = IntegerField('TelephoneCountryCode', validators=[validators.DataRequired()])

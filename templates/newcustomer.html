@@ -15,18 +15,22 @@ New customer
       Fill out the form with the customers information. Then press "Save"
    </h3>  
    <form method="post">
-    {{ formen.csrf_token }}
-    {{ formen.FirstName(placeholder="Enter firstname") }} <br><br>
-    {{ formen.LastName(placeholder="Enter lastname") }}<br><br>
-    {{ formen.City(placeholder="Enter city") }}<br><br>
-    {{ formen.Streetaddress(placeholder="Enter streetaddress") }}<br><br>
-    {{ formen.Zipcode(placeholder="Enter zipcode") }}<br><br>
-    {{ formen.Country(placeholder="Enter country") }}<br><br>
-    {{ formen.SocialSecurityNumber(placeholder="Enter social security number") }}<br><br>
-    {{ formen.age(placeholder="Select age") }}<br><br>
+      {{ formen.csrf_token }}
+      {{ formen.GivenName(placeholder="Enter firstname") }} <br><br>
+      {{ formen.Surname(placeholder="Enter lastname") }}<br><br>
+      {{ formen.City(placeholder="Enter city") }}<br><br>
+      {{ formen.Streetaddress(placeholder="Enter streetaddress") }}<br><br>
+      {{ formen.Zipcode(placeholder="Enter zipcode") }}<br><br>
+      {{ formen.Country(placeholder="Enter country") }}<br><br>
+      {{ formen.NationalId(placeholder="Enter social security number") }}<br><br>
+      {{ formen.Birthday(placeholder="Enter birthday") }}<br><br>
+      {{ formen.EmailAddress(placeholder="Enter email") }}<br><br>
+      {{ formen.TelephoneCountryCode(placeholder="Enter TelephoneCountryCode") }}<br><br>
+      
 
-
-     {{ formen.countryCode() }}
+  
+  
+       {{ formen.CountryCode() }}
     <input type="submit" value="Save">
     <p id="reminder">Remember to always check the customers<br> identification before adding<br> the customer to our system</p>
    </form>

@@ -26,6 +26,7 @@
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
+        
     </tr>
     {% for customer in listOfCustomers %}
         <tr>
@@ -33,6 +34,13 @@
             <td>{{ customer.City }}</td>
             <td>
                 <a class="customerlink colororange" href="#"> Se mer</a>
+                <!-- <form method="get">
+                    <input class="btn" type=submit value="Se mer">
+                </form>
+            
+                <a href="{{  url_for('transaction') }}"> -->
+                    
+            
             </td>
         </tr>
         {% endfor %}
