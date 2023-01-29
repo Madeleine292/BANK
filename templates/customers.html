@@ -3,10 +3,10 @@
 
 <form method="get">
     <input type="text" placeholder="sök" value="{{ q }}" name="q">
-    <input class="btn" type=submit value="Sök">
+    <input class="btn" type=submit value="Search">
 </form>
 
-<p style="color:white">Du är på sidan {{ page }} av totalt {{ pages }}</p>
+<p style="color:white">You are on page {{ page }} off {{ pages }}</p>
 <table style="color:white">
     <tr>
         <th>Name
@@ -33,7 +33,10 @@
             <td>{{ customer.GivenName }}</td>
             <td>{{ customer.City }}</td>
             <td>
-                <a class="customerlink colororange" href="/customer/{{customer.Id}}">Se mer</a>                              
+                <a class="customerlink colororange" href="/customer/{{customer.Id}}">Se mer</a>
+                <!-- <div>
+                    <button class="btn rounded-0">See more</button>
+                </div>                               -->
             </td>
         </tr>
         {% endfor %}

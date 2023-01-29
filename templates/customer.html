@@ -12,7 +12,72 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
 {% endblock %}
 
 {% block content %}
+<h1>This is customer: {{ customer.Id }}:s personal information</h1>
+<table style="width:40%">
+    <tr>
+        <th>Id:</th>
+        <td>{{ customer.Id }}</td>
+    </tr>
+    <tr>
+        <th>First name:</th>
+        <td>{{ customer.GivenName }}</td>
+    </tr>
+    <tr>
+        <th>Last name:</th>
+        <td>{{ customer.Surname }}</td>
+    </tr>
+    <tr>
+        <th>Streetaddress:</th>
+        <td>{{ customer.Streetaddress }}</td>
+    </tr>
+    <tr>
+        <th>City:</th>
+        <td>{{ customer.City }}</td>
+    </tr>
+    <tr>
+        <th>Zipcode:</th>
+        <td>{{ customer.Zipcode }}</td>
+    </tr>
+    <tr>
+        <th>Country:</th>
+        <td>{{ customer.Country }}</td>
+    </tr>
+    <tr>
+        <th>Birthday:</th>
+        <td>{{ customer.Birthday }}</td>
+    </tr>
+    <tr>
+        <th>NationalId:</th>
+        <td>{{ customer.NationalId }}</td>
+    </tr>
+    <tr>
+        <th>Telephone country code:</th>
+        <td>{{ customer.TelephoneCountryCode }}</td>
+    </tr>
+    <tr>
+        <th>Telephone:</th>
+        <td>{{ customer.Telephone }}</td>
+    </tr>
+    <tr>
+        <th>Emailaddress:</th>
+        <td>{{ customer.EmailAddress }}</td>
+    </tr>
 
-<h1>{{ customer.GivenName }} {{ customer.Surname }}</h1>
+
+       
+   
+        <!-- <th>telephonecountrycode, telephone</th> -->
+        <!-- <th>emailaddress</th> -->
+    <!-- </tr>
+    <tr> -->
+            <!-- <td>{{ customer.Id }}, {{ customer.GivenName }} {{ customer.Surname }}</td> -->
+            <!-- <td>{{ customer.Streetaddress }}</td> -->
+            <!-- <td>{{ customer.City }} {{ customer.Zipcode }}</td> -->
+            <!-- <td>{{ customer.Country }}</td> -->
+            <!-- <td>{{ customer.Birthday }}, {{ customer.NationalId }}</td> -->
+            <!-- <td>{{ customer.TelephoneCountryCode }}, {{ customer.Telephone }}</td>
+            <td>{{ customer.EmailAddress }}</td> -->
+    <!-- </tr> -->
+</table>
 
 {% endblock %}
