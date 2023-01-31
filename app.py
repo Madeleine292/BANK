@@ -101,6 +101,22 @@ def newcustomer():
         db.session.commit()
         return redirect("/customers" )
     return render_template("newcustomer.html", formen=form )
+
+
+@app.route("/editcustomer/<int:id>", methods=['GET', 'POST'])
+def editcustomer(id):
+    customer = Customer.query.filter_by(Id=id).first()
+    form = NewCustomerForm()
+    if form.validate_on_submit():
+        #spara i databas
+        customer.GivenName = form.GivenName.data
+        customer.City = form.City.data
+        db.session.commit()
+        return redirect("/customers" )
+    if request.method == 'GET':
+        form.GivenName .data = customer.GivenName
+        form.City.data = customer.City
+    return render_template("editcustomer.html", formen=form )
     
 
 
@@ -110,22 +126,35 @@ def newcustomer():
 #     customer = Customer.query.all()
 #     return render_template("customers.html", CUSTOMER=customer)
 
+# @app.route("/customer/<id>")
+# def customerpage(id):
+#     customer = Customer.query.filter_by(Id = id).first()
+#     return render_template("customer.html", customer=customer )
+
 @app.route("/customer/<id>")
 def customerpage(id):
     customer = Customer.query.filter_by(Id = id).first()
-    return render_template("customer.html", customer=customer )
+    Saldo = 0
+    for accounts in customer.Accounts:
+        Saldo = Saldo + accounts.Balance
+
+
+    return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo )
 
 
 
-@app.route("/account/<id>")
-def account():
-    account = Account.query.all()
-    return render_template("customers.html", PRODUCTS=account)
 
-@app.route("/transaction", methods=['GET'])
-def transaction():
-    transaction = Transaction.query.all()
-    return render_template("customers.html", TRANSACTION=transaction)
+@app.route("/customer/account/<id>")
+def Transaktioner(id):
+    account = Account.query.filter_by(Id = id).first()
+    transaktioner = Transaction.query.filter_by(AccountId=id)
+    transaktioner = transaktioner.order_by(Transaction.Date.desc())
+    return render_template("transaction.html", account=account, transaktioner=transaktioner)
+
+# @app.route("/transaction", methods=['GET'])
+# def transaction():
+#     transaction = Transaction.query.all()
+#     return render_template("transaction.html", TRANSACTION=transaction)
 
 
 

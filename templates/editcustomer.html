@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block title %}
+Edit customer
+{% endblock %}
+
+{% block content %}
+
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+   <form method="post">
+    {{ formen.csrf_token }}
+    {{ formen.GivenName(placeholder="Enter name") }}
+    {{ formen.City(placeholder="Enter city") }}
+  
+
+     <h3>
+        hej
+     </h3>  
+     {{ formen.CountryCode() }}
+    <input type="submit" value="Spara">
+   </form>
+{% endblock %}    

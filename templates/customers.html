@@ -26,41 +26,65 @@
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
-        
+
     </tr>
     {% for customer in listOfCustomers %}
-        <tr>
-            <td>{{ customer.GivenName }}</td>
-            <td>{{ customer.City }}</td>
-            <td>
-                <a class="customerlink colororange" href="/customer/{{customer.Id}}">Se mer</a>
-                <!-- <div>
+    <tr>
+        <td>{{ customer.GivenName }}</td>
+        <td>{{ customer.City }}</td>
+        <td>
+            <a class="customerlink colororange" href="/customer/{{customer.Id}}">Se mer</a>
+
+
+
+            <!-- <div>
                     <button class="btn rounded-0">See more</button>
                 </div>                               -->
+
+            <!-- <i class='bx bx-edit-alt'></i> -->
+
+        </td>
+    </tr>
+    {% endfor %}
+    <tfooter>
+        <tr>
+            <td>
+                {% if has_prev %}
+                <a class="btn"
+                    href="/customers?page={{ page - 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
+                    Prev
+                </a>
+            </td>
+            {% endif %}
+            <td></td>
+            <td>
+                {% if has_next %}
+                <a class="btn"
+                    href="/customers?page={{ page + 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
+                    Next
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+    </tfooter>
+
+    {% for c in customers  %}
+        <tr>
+            <td>
+                {{ c.Name }}
+            </td>
+            <td>
+                {{ c.City }}
+            </td>
+            <td>
+                <a href="/editcustomer/{{ c.id }}">
+                    <i class='bx bx-edit-alt'></i>
+                </a>
             </td>
         </tr>
-        {% endfor %}
-        <tfooter>
-            <tr>
-                <td>
-                    {% if has_prev %}
-                    <a class="btn"
-                        href="/customers?page={{ page - 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
-                        Prev
-                    </a>                    
-                </td>
-                {% endif %}
-                <td></td>
-                <td>
-                    {% if has_next %}
-                    <a class="btn"
-                        href="/customers?page={{ page + 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
-                        Next
-                    </a>
-                </td>
-                {% endif %}
-            </tr>
-        </tfooter>
-      </table>
+
+    {% endfor %}
+
+ </table>
 
 {% endblock %}

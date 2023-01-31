@@ -222,16 +222,16 @@ h6,
   transition: 0.5s;
   line-height: 1;
   margin: 10px;
-  color: #fff;
+  color: rgb(215, 194, 115);
   -webkit-animation-delay: 0.8s;
   animation-delay: 0.8s;
-  border: 2px solid #68A4C4;
+  border: 2px solid rgb(215, 194, 115);
 }
 
 
 #hero .btn-get-started:hover {
-  background: #68A4C4;
-  color: #fff;
+  background: rgb(63, 63, 60, 0.3);
+  color: rgb(215, 194, 115);
   text-decoration: none;
 }
 
@@ -247,17 +247,29 @@ h6,
   margin: 10px;
 }
 
-table, th, td {
+table.tb table, table.tb th, table.tb td {
   /* border: 1px solid black; */
   border-collapse: collapse;
   border-left: 30px;
 }
 
-tr:nth-child(odd) {
+table.tb tr:nth-child(odd) {
   background-color: rgb(63, 63, 60, 0.3);
 }
 
-th, td {
+table.tb th, table.tb td {
   text-align: left;
 }
 
+/* försöker få en linje i mitten av tabellen */
+/* table.tb {
+  border-collapse: collapse;
+}
+
+table.tb tr {
+  border: none;
+}
+
+table.tb td:first-child {
+  border-right: solid 1px #f00;
+} */

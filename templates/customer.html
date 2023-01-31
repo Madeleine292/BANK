@@ -13,7 +13,8 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
 
 {% block content %}
 <h1>This is customer: {{ customer.Id }}:s personal information</h1>
-<table style="width:40%">
+
+<table class="tb" style="width:40%">
     <tr>
         <th>Id:</th>
         <td>{{ customer.Id }}</td>
@@ -62,22 +63,14 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
         <th>Emailaddress:</th>
         <td>{{ customer.EmailAddress }}</td>
     </tr>
-
-
-       
-   
-        <!-- <th>telephonecountrycode, telephone</th> -->
-        <!-- <th>emailaddress</th> -->
-    <!-- </tr>
-    <tr> -->
-            <!-- <td>{{ customer.Id }}, {{ customer.GivenName }} {{ customer.Surname }}</td> -->
-            <!-- <td>{{ customer.Streetaddress }}</td> -->
-            <!-- <td>{{ customer.City }} {{ customer.Zipcode }}</td> -->
-            <!-- <td>{{ customer.Country }}</td> -->
-            <!-- <td>{{ customer.Birthday }}, {{ customer.NationalId }}</td> -->
-            <!-- <td>{{ customer.TelephoneCountryCode }}, {{ customer.Telephone }}</td>
-            <td>{{ customer.EmailAddress }}</td> -->
-    <!-- </tr> -->
 </table>
+
+<a href="" class="btn-get-started animate__animated animate__fadeInUp">Edit</a>
+<!-- <div>
+    <button class="btn rounded-0">Edit</button>
+</div>                              
+ <i class='bx bx-edit-alt'></i> -->
+
+
 
 {% endblock %}
