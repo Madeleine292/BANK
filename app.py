@@ -5,10 +5,14 @@ from model import Customer, Account, Transaction
 from model import db, seedData
 from forms import NewCustomerForm
 import os
+from flask_security import roles_accepted, auth_required, logout_user
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
-app.config['SECRET_KEY'] = os.urandom(32)
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
+app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
+app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
+app.config["SESSION_COOKIE_SAMESITE"] = "strict"
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
@@ -40,8 +44,20 @@ def startpage():
     print("hello")
     return render_template("index.html" )
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect("/")
+
+@app.route("/adminblabla")
+@auth_required()
+@roles_accepted("Admin")
+def adminblblapage():
+    return render_template("adminblabla.html", activePage="secretPage" )
 
 @app.route("/customers")
+@auth_required()
+@roles_accepted("Admin","Staff")
 def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
     #plockar fram sakerna som kommer efteråt med request
     sortColumn = request.args.get('sortColumn', 'namn')
@@ -65,6 +81,21 @@ def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
             listOfCustomers = listOfCustomers.order_by(Customer.City.asc())
         else:
             listOfCustomers = listOfCustomers.order_by(Customer.City.desc())
+    if sortColumn == "id":
+        if sortOrder == "asc":
+            listOfCustomers = listOfCustomers.order_by(Customer.Id.asc())
+        else:
+            listOfCustomers = listOfCustomers.order_by(Customer.Id.desc())
+    elif sortColumn == "NationalId":
+        if sortOrder == "asc":
+            listOfCustomers = listOfCustomers.order_by(Customer.NationalId.asc())
+        else:
+            listOfCustomers = listOfCustomers.order_by(Customer.NationalId.desc())
+    if sortColumn == "id":
+        if sortOrder == "asc":
+            listOfCustomers = listOfCustomers.order_by(Customer.Id.asc())
+        else:
+            listOfCustomers = listOfCustomers.order_by(Customer.Id.desc())
 
     paginationObject = listOfCustomers.paginate(page=page, per_page=10, error_out=False)
 
@@ -80,7 +111,10 @@ def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
 
 
 @app.route("/newcustomer", methods=['GET', 'POST'])
+@auth_required()
+@roles_accepted("Admin","Staff")
 def newcustomer():
+    
     form = NewCustomerForm()
     if form.validate_on_submit():
         #spara i databas
@@ -104,6 +138,8 @@ def newcustomer():
 
 
 @app.route("/editcustomer/<int:id>", methods=['GET', 'POST'])
+@auth_required()
+@roles_accepted("Admin","Staff")
 def editcustomer(id):
     customer = Customer.query.filter_by(Id=id).first()
     form = NewCustomerForm()
@@ -132,24 +168,32 @@ def editcustomer(id):
 #     return render_template("customer.html", customer=customer )
 
 @app.route("/customer/<id>")
+@auth_required()
+@roles_accepted("Admin","Staff")
 def customerpage(id):
     customer = Customer.query.filter_by(Id = id).first()
+    a = Account.query.filter_by(CustomerId = id).all()
     Saldo = 0
     for accounts in customer.Accounts:
         Saldo = Saldo + accounts.Balance
 
 
-    return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo )
+    return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo, a=a )
 
 
 
 
-@app.route("/customer/account/<id>")
+@app.route("/account/<id>")
+@auth_required()
+@roles_accepted("Admin","Staff")
 def Transaktioner(id):
     account = Account.query.filter_by(Id = id).first()
     transaktioner = Transaction.query.filter_by(AccountId=id)
     transaktioner = transaktioner.order_by(Transaction.Date.desc())
-    return render_template("transaction.html", account=account, transaktioner=transaktioner)
+    page = int(request.args.get('page', 1))
+    paginationObject = transaktioner.paginate(page=page, per_page=7, error_out=False)
+    return render_template("transaction.html", account=account, transaktioner=paginationObject.items, page=page,  has_next=paginationObject.has_next,
+                            has_prev=paginationObject.has_prev)
 
 # @app.route("/transaction", methods=['GET'])
 # def transaction():
@@ -161,7 +205,7 @@ def Transaktioner(id):
 
 if __name__  == "__main__":
     with app.app_context():
-    #     upgrade()
+        # upgrade()
 
-        # seedData(db)
+        seedData(app, db)
         app.run(debug=True)

@@ -205,7 +205,7 @@ h6,
   -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
   margin: 0 auto 30px auto;
-  color: rgb(189, 165, 165);
+  color: rgb(42, 91, 164);
 }
 
 
@@ -273,3 +273,10 @@ table.tb tr {
 table.tb td:first-child {
   border-right: solid 1px #f00;
 } */
+
+table.tb2 th, table.tb2 td {
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 20px 15px;
+}
+

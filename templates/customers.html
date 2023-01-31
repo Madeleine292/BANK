@@ -7,7 +7,7 @@
 </form>
 
 <p style="color:white">You are on page {{ page }} off {{ pages }}</p>
-<table style="color:white">
+<table class="tb2" style="color:white">
     <tr>
         <th>Name
             <a href="{{  url_for('customers',sortColumn='namn',sortOrder='asc', q=q, page=page  ) }}">
@@ -26,22 +26,47 @@
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
+        <!-- <th>Customer number</th>
+        <th>Social security number</th>
+        <th>Streetaddress</th> -->
+
+        <th>Customer number
+            <a href="{{  url_for('customers',sortColumn='id',sortOrder='asc', q=q, page=page  ) }}">
+                <i class='bx bx-up-arrow-alt'></i>
+            </a>
+            <a href="{{  url_for('customers',sortColumn='id',sortOrder='desc', q=q, page=page ) }}">
+                <i class='bx bx-down-arrow-alt'></i>
+            </a>
+        </th>
+
+        <th>Social security number
+            <a href="{{  url_for('customers',sortColumn='NationalId',sortOrder='asc', q=q, page=page ) }}">
+                <i class='bx bx-up-arrow-alt'></i>
+            </a>
+            <a href="{{  url_for('customers',sortColumn='NationalId',sortOrder='desc', q=q, page=page ) }}">
+                <i class='bx bx-down-arrow-alt'></i>
+            </a>
+        </th>
+        <th>Streetaddress
+            <a href="{{  url_for('customers',sortColumn='Streetaddress',sortOrder='asc', q=q, page=page ) }}">
+                <i class='bx bx-up-arrow-alt'></i>
+            </a>
+            <a href="{{  url_for('customers',sortColumn='Streetaddress',sortOrder='desc', q=q, page=page ) }}">
+                <i class='bx bx-down-arrow-alt'></i>
+            </a>
+        </th>
+
 
     </tr>
     {% for customer in listOfCustomers %}
     <tr>
         <td>{{ customer.GivenName }}</td>
         <td>{{ customer.City }}</td>
+        <td>{{ customer.Id }}</td>
+        <td>{{ customer.NationalId }}</td>
+        <td>{{ customer.Streetaddress }}</td>
         <td>
-            <a class="customerlink colororange" href="/customer/{{customer.Id}}">Se mer</a>
-
-
-
-            <!-- <div>
-                    <button class="btn rounded-0">See more</button>
-                </div>                               -->
-
-            <!-- <i class='bx bx-edit-alt'></i> -->
+            <a class="customerlink colororange" href="{{ url_for('customerpage',id=customer.Id ) }}">More info</a>
 
         </td>
     </tr>
@@ -51,16 +76,19 @@
             <td>
                 {% if has_prev %}
                 <a class="btn"
-                    href="/customers?page={{ page - 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
+                    href="{{  url_for('customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page - 1) }}">
                     Prev
                 </a>
             </td>
             {% endif %}
             <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
                 {% if has_next %}
                 <a class="btn"
-                    href="/customers?page={{ page + 1 }}&sortColumn={{ sortColumn }}&sortOrder={{ sortOrder }}&q={{ q }}">
+                    href="{{  url_for('customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page + 1) }}">
                     Next
                 </a>
             </td>
@@ -68,23 +96,23 @@
         </tr>
     </tfooter>
 
-    {% for c in customers  %}
-        <tr>
-            <td>
-                {{ c.Name }}
-            </td>
-            <td>
-                {{ c.City }}
-            </td>
-            <td>
-                <a href="/editcustomer/{{ c.id }}">
-                    <i class='bx bx-edit-alt'></i>
-                </a>
-            </td>
-        </tr>
+    {% for c in customers %}
+    <tr>
+        <td>
+            {{ c.Name }}
+        </td>
+        <td>
+            {{ c.City }}
+        </td>
+        <td>
+            <a href="{{ url_for('editcustomer',id=c.Id ) }}">
+                <i class='bx bx-edit-alt'></i>
+            </a>
+        </td>
+    </tr>
 
     {% endfor %}
 
- </table>
+</table>
 
 {% endblock %}

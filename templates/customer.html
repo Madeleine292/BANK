@@ -12,9 +12,44 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
 {% endblock %}
 
 {% block content %}
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+      
+    .column {
+      float: left;
+      width: 40%;
+      padding-top: 40px;
+    }
+    
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+    
+    }
+    .row {
+  margin-left:30%;
+  width: 100%
+    }
+
+    
+    th, td {
+      text-align: left;
+      padding-right: 30px;
+      padding-bottom: 10px
+    }
+    
+
+    
+    </style>
 <h1>This is customer: {{ customer.Id }}:s personal information</h1>
 
-<table class="tb" style="width:40%">
+<div class="row">
+    <div class="column">
+<table class="tb">
     <tr>
         <th>Id:</th>
         <td>{{ customer.Id }}</td>
@@ -63,14 +98,23 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
         <th>Emailaddress:</th>
         <td>{{ customer.EmailAddress }}</td>
     </tr>
+
 </table>
+</div>
+    <div class="column">
+<table class="tb">
 
-<a href="" class="btn-get-started animate__animated animate__fadeInUp">Edit</a>
-<!-- <div>
-    <button class="btn rounded-0">Edit</button>
-</div>                              
- <i class='bx bx-edit-alt'></i> -->
+    {% for account in a %}
+    <tr>
+        <th><a href="{{ url_for('Transaktioner',id=account.Id ) }}">{{ account.AccountType }}</a></th>
 
+        <td>{{ account.Balance }} :-</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+</div>
 
+<a href="" class="btn-get-started animate__animated animate__fadeInUp">Edit customer</a>
 
 {% endblock %}

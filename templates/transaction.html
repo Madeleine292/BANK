@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+
+{% block title %}
+Account name
+{% endblock %}
+
+
+{% block content %}
+<h1>
+    Account name: 
+{{ account.AccountType }}
+</h1>
+<h2>
+Account number: {{ account.Id }} <br>Balance: {{account.Balance}}
+</h2>
+<table class="table" style="color:white">
+<thead>
+    <th>Id</th>
+    <th>Date</th>
+    <th>Operation</th>
+    <th>Amount</th>
+    <th>Type</th>
+    <th>NewBalance</th>
+</thead>
+<tbody>
+    {%  for t in transaktioner   %}
+    <tr>
+        <td>{{ t.Id }}</td> 
+        <td>{{ t.Date }}</td>
+        <td>{{ t.Operation }}</td>
+        <td>{{ t.Amount }}</td>
+        <td>{{ t.Type }}</td> 
+        <td>{{ t.NewBalance}}</td>
+    </tr>
+    {%  endfor  %}
+    </tbody>
+    <tfooter>
+        <tr>
+            <td>
+                {% if has_prev %}
+                <a class="btn"
+                    href="{{  url_for('Transaktioner', id=account.Id, page=page - 1) }}">
+                    Prev
+                </a>
+            </td>
+            {% endif %}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                {% if has_next %}
+                <a class="btn"
+                    href="{{  url_for('Transaktioner',id=account.Id, page=page + 1) }}">
+                    Next
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+    </tfooter>
+</table>
+
+{% endblock %}
