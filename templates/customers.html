@@ -3,7 +3,7 @@
 
 <form method="get">
     <input type="text" placeholder="sök" value="{{ q }}" name="q">
-    <input class="btn" type=submit value="Search">
+    <input class="btn3" type=submit value="Search">
 </form>
 
 <p style="color:white">You are on page {{ page }} off {{ pages }}</p>
@@ -66,7 +66,10 @@
         <td>{{ customer.NationalId }}</td>
         <td>{{ customer.Streetaddress }}</td>
         <td>
-            <a class="customerlink colororange" href="{{ url_for('customerpage',id=customer.Id ) }}">More info</a>
+            <!-- <a class="customerlink colororange" href="{{ url_for('customerpage',id=customer.Id ) }}">More info</a> -->
+
+            <a  href="{{ url_for('customerpage',id=customer.Id ) }}" class="btn3" >More info</a>
+
 
         </td>
     </tr>
@@ -75,7 +78,7 @@
         <tr>
             <td>
                 {% if has_prev %}
-                <a class="btn"
+                <a class="btn2"
                     href="{{  url_for('customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page - 1) }}">
                     Prev
                 </a>
@@ -87,7 +90,7 @@
             <td></td>
             <td>
                 {% if has_next %}
-                <a class="btn"
+                <a class="btn2"
                     href="{{  url_for('customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page + 1) }}">
                     Next
                 </a>

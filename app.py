@@ -6,6 +6,7 @@ from model import db, seedData
 from forms import NewCustomerForm
 import os
 from flask_security import roles_accepted, auth_required, logout_user
+from datetime import datetime
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
@@ -97,7 +98,7 @@ def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
         else:
             listOfCustomers = listOfCustomers.order_by(Customer.Id.desc())
 
-    paginationObject = listOfCustomers.paginate(page=page, per_page=10, error_out=False)
+    paginationObject = listOfCustomers.paginate(page=page, per_page=15, error_out=False)
 
     return render_template("customers.html", 
                             listOfCustomers=paginationObject.items,
@@ -118,41 +119,82 @@ def newcustomer():
     form = NewCustomerForm()
     if form.validate_on_submit():
         #spara i databas
+        now = datetime.now()
         customer = Customer()
         customer.GivenName = form.GivenName.data
         customer.Surname = form.Surname.data
         customer.City = form.City.data
         customer.CountryCode = 1
-        customer.Telephone = "321323"
+        customer.Telephone = form.Telephone.data
         customer.Streetaddress = form.Streetaddress.data
         customer.Zipcode = form.Zipcode.data
         customer.Country = form.Country.data
         customer.NationalId = form.NationalId.data
         customer.Birthday = form.Birthday.data
         customer.EmailAddress = form.EmailAddress.data
-        customer.TelephoneCountryCode = form.TelephoneCountryCode.data
+        customer.TelephoneCountryCode = form.CountryCode.data
+        newaccount = Account()
+        newaccount.AccountType = "Personal"
+        newaccount.Created = now
+        newaccount.Balance = 0
+        customer.Accounts = [newaccount]
         db.session.add(customer)
         db.session.commit()
         return redirect("/customers" )
-    return render_template("newcustomer.html", formen=form )
+    return render_template("newcustomer.html", formen=form)
 
 
-@app.route("/editcustomer/<int:id>", methods=['GET', 'POST'])
-@auth_required()
-@roles_accepted("Admin","Staff")
+@app.route("/editcustomer/<id>", methods=['GET', 'POST'])
 def editcustomer(id):
     customer = Customer.query.filter_by(Id=id).first()
     form = NewCustomerForm()
-    if form.validate_on_submit():
-        #spara i databas
+    
+    if form.validate_on_submit():        
         customer.GivenName = form.GivenName.data
+        customer.Surname = form.Surname.data
+        customer.Streetaddress = form.Streetaddress.data
         customer.City = form.City.data
+        customer.Zipcode = form.Zipcode.data
+        customer.Country = form.Country.data
+        customer.CountryCode = form.CountryCode.data
+        customer.Birthday = form.Birthday.data
+        customer.NationalId = form.NationalId.data
+        customer.TelephoneCountryCode = form.CountryCode.data
+        customer.Telephone = form.Telephone.data
+        customer.EmailAddress = form.EmailAddress.data
         db.session.commit()
         return redirect("/customers" )
     if request.method == 'GET':
-        form.GivenName .data = customer.GivenName
+        form.GivenName.data = customer.GivenName
+        form.Surname.data = customer.Surname
+        form.Streetaddress.data = customer.Streetaddress
         form.City.data = customer.City
+        form.Zipcode.data = customer.Zipcode
+        form.Country.data = customer.Country
+        form.CountryCode.data = customer.CountryCode
+        form.Birthday.data = customer.Birthday
+        form.NationalId.data = customer.NationalId
+        form.CountryCode.data = customer.CountryCode
+        form.Telephone.data = customer.Telephone
+        form.EmailAddress.data = customer.EmailAddress
     return render_template("editcustomer.html", formen=form )
+
+# @app.route("/editcustomer/<int:id>", methods=['GET', 'POST'])
+# @auth_required()
+# @roles_accepted("Admin","Staff")
+# def editcustomer(id):
+#     customer = Customer.query.filter_by(Id=id).first()
+#     form = NewCustomerForm()
+#     if form.validate_on_submit():
+#         #spara i databas
+#         customer.GivenName = form.GivenName.data
+#         customer.City = form.City.data
+#         db.session.commit()
+#         return redirect("/customers" )
+#     if request.method == 'GET':
+#         form.GivenName .data = customer.GivenName
+#         form.City.data = customer.City
+#     return render_template("editcustomer.html", formen=form )
     
 
 
@@ -209,3 +251,4 @@ if __name__  == "__main__":
 
         seedData(app, db)
         app.run(debug=True)
+       

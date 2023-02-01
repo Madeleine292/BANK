@@ -108,6 +108,7 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
     <tr>
         <th><a href="{{ url_for('Transaktioner',id=account.Id ) }}">{{ account.AccountType }}</a></th>
 
+
         <td>{{ account.Balance }} :-</td>
     </tr>
     {% endfor %}
@@ -115,6 +116,8 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
 </div>
 </div>
 
-<a href="" class="btn-get-started animate__animated animate__fadeInUp">Edit customer</a>
+    <a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="btn-get-started animate__animated animate__fadeInUp">Edit customer</a>
+
+
 
 {% endblock %}

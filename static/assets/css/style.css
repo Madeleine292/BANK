@@ -8,10 +8,12 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+
 /* stil och färg på headers */
 body {
   font-family: "Open Sans", sans-serif;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.895);
   
 }
 
@@ -150,7 +152,6 @@ h6,
 #hero {
   width: 100%;
   height: 90vh;
-  overflow: hidden;
   position: relative;
 }
 /* bakgroundpicture */
@@ -187,10 +188,7 @@ h6,
   align-items: center;
   flex-direction: column;
   text-align: center;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
+  
 }
 /* welcome to laurentzen bank */
 #hero h2 {
@@ -280,3 +278,62 @@ table.tb2 th, table.tb2 td {
   border-spacing: 20px 15px;
 }
 
+table.table3 table, table.table3 th, table.table3 td {
+  border-collapse: collapse;
+  border-left: 30px;
+}
+
+#hero2 .carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+
+}
+
+.btn2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 50px;
+  transition: 0.5s;
+  line-height: 1;
+  margin: 10px;
+  color: rgb(215, 194, 115);
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  border: 2px solid rgb(215, 194, 115);
+  
+}
+.btn2:hover{
+  color:rgb(115, 99, 41);
+}
+
+.btn3 {
+  color:rgb(215, 194, 115);
+  background-color: transparent;
+  border: none;
+}
+
+.btn3:hover {
+  color:rgb(115, 99, 41);
+}
+
+.bx.bx-down-arrow-alt {
+  color:rgb(215, 194, 115);
+}
+.bx.bx-up-arrow-alt {
+  color:rgb(215, 194, 115);
+}
+
+.nuvarande {
+  color:rgb(215, 194, 115);
+}

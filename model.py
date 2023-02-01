@@ -73,6 +73,13 @@ def seedData(app,db):
         app.security.datastore.create_user(email="worker1@systementor.se", password=hash_password("password"),roles=["Staff"])
     if not app.security.datastore.find_user(email="worker2@systementor.se"):
         app.security.datastore.create_user(email="worker2@systementor.se", password=hash_password("password"),roles=["Staff"])
+
+    if not app.security.datastore.find_user(email="stefan.holmberg@systementor.se"):
+        app.security.datastore.create_user(email="stefan.holmberg@systementor.se", password=hash_password("Hejsan123#"),roles=["Admin"])
+
+    if not app.security.datastore.find_user(email="stefan.holmberg@nackademin.se"):
+        app.security.datastore.create_user(email="stefan.holmberg@nackademin.se", password=hash_password("Hejsan123#"),roles=["Staff"])
+        
     app.security.datastore.db.session.commit()
 
     antal =  Customer.query.count()

@@ -16,7 +16,8 @@ class NewCustomerForm(FlaskForm):
     Zipcode = IntegerField('zipcode', validators=[validators.DataRequired()])
     Country = StringField('streetaddress', validators=[validators.DataRequired()])
     NationalId = IntegerField('zipcode', validators=[validators.DataRequired()])
-    CountryCode = SelectField('countryCode',choices=[('SE','+46'),('NO','+41'),('FI','+42')])
+    CountryCode = SelectField('countryCode',choices=[('46','+46'),('41','+41'),('42','+42')])
     Birthday = DateField('Birthday', validators=[validators.DataRequired()])
     EmailAddress = StringField('emailaddress', validators=[validators.DataRequired()])
-    TelephoneCountryCode = IntegerField('TelephoneCountryCode', validators=[validators.DataRequired()])
+    Telephone = StringField('Telephone', validators=[validators.DataRequired()])
+
