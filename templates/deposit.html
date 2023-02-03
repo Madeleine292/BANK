@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+{% for transaction in t %}
+<tr>
+    <th><a href="{{ url_for('deposit',id=account.Id ) }}">{{ account.AccountType }}</a></th>
+
+
+    <td>{{ transaction.newtransaction }} :-</td>
+</tr>
+{% endfor %}
+
+
+{% block title %}
+Transactions
+{% endblock %}
+
+{% block content %}
+
+    {% for field, errors in formen.errors.items() %}
+    {{ formen[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+    <h3>
+      Fill out the form with the customers information. Then press "Save"
+   </h3>  
+   <form method="post">
+      {{ form.csrf_token }}
+      {{ form.Type(placeholder="Enter Type") }} <br><br>
+      {{ form.Operation(placeholder="Enter Operation") }}<br><br>
+      {{ form.Date(placeholder="Enter city") }}<br><br>
+      {{ form.Amount(placeholder="Enter Amount") }}<br><br>
+      {{ form.NewBalance(placeholder="Enter zipcode") }}<br><br>
+      
+
+  
+  
+       {{ form.newtransaction() }}
+    <input type="submit" value="Save">
+    <p id="reminder">Remember to always check the customers<br> identification before adding<br> the customer to our system</p>
+   </form>
+{% endblock %}    

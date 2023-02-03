@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import Customer, Account, Transaction
 from model import db, seedData
-from forms import NewCustomerForm
+from forms import NewCustomerForm, DepositForm
 import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
@@ -241,6 +241,28 @@ def Transaktioner(id):
 # def transaction():
 #     transaction = Transaction.query.all()
 #     return render_template("transaction.html", TRANSACTION=transaction)
+
+@app.route("/deposit", methods=['GET', 'POST'])
+def deposit(id):
+    account = Account.query.filter_by(Id = id).first()
+    customer = Customer.query.filter_by(Id = id).first()
+    form = DepositForm()
+    date = datetime.now()
+    
+    if form.validate_on_submit():        
+        Account.Balance == Account.Balance + form.Amount.data
+        newtransaction = Transaction()
+        newtransaction.Type = form.Type.data
+        newtransaction.Operation = form.Operation.data
+        newtransaction.Date = date
+        newtransaction.Amount = form.Amount.data
+        newtransaction.NewBalance == Account.Balance == account.Balance + form.Amount.data
+        account.Transactions = [newtransaction]
+        db.session.add(newtransaction)
+        db.session.commit()
+
+    return render_template("deposit.html", account=account, customer = customer)
+
 
 
 
