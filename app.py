@@ -250,15 +250,15 @@ def deposit(id):
     date = datetime.now()
     
     if form.validate_on_submit():        
-        Account.Balance == Account.Balance + form.Amount.data
-        newtransaction = Transaction()
-        newtransaction.Type = form.Type.data
-        newtransaction.Operation = form.Operation.data
-        newtransaction.Date = date
-        newtransaction.Amount = form.Amount.data
-        newtransaction.NewBalance == Account.Balance == account.Balance + form.Amount.data
-        account.Transactions = [newtransaction]
-        db.session.add(newtransaction)
+        account.Balance == account.Balance + form.Amount.data
+        # newtransaction = Transaction()
+        # newtransaction.Type = form.Type.data
+        # newtransaction.Operation = form.Operation.data
+        # newtransaction.Date = date
+        # newtransaction.Amount = form.Amount.data
+        # newtransaction.NewBalance == Account.Balance + form.Amount.data
+        # account.Transactions = [newtransaction]
+        # db.session.add(newtransaction)
         db.session.commit()
 
     return render_template("deposit.html", account=account, customer = customer)
