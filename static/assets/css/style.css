@@ -113,7 +113,7 @@ h6,
   padding: 10px 0 10px 30px;
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
-  color: #fff;
+  color: rgb(215, 194, 115);
   white-space: nowrap;
   transition: 0.3s;
 }
@@ -130,7 +130,7 @@ h6,
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #a2cce3;
+  color: rgb(115, 99, 41);
 }
 /* ser till så att sidorna: customers, startpage, new customers är linjerat snyggt */
 .navbar .dropdown ul {
@@ -203,7 +203,7 @@ h6,
   -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
   margin: 0 auto 30px auto;
-  color: rgb(42, 91, 164);
+  color: rgb(217, 182, 165)
 }
 
 
@@ -282,6 +282,23 @@ table.table3 table, table.table3 th, table.table3 td {
   border-collapse: collapse;
   border-left: 30px;
 }
+/* table startpage */
+table.tableSP table, table.tableSP th, table.tableSP td{
+  left: 500px;
+  border-collapse: collapse;
+  text-align: left;
+  color: rgb(217, 182, 165);
+  padding-right: 20px;
+  padding-bottom: 10px;
+  border: 1px;
+  border-color: rgb(217, 182, 165);
+  border-style: solid;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+
+
 
 #hero2 .carousel-container {
   display: flex;

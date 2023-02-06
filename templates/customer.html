@@ -14,110 +14,116 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
 {% block content %}
 <style>
     * {
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
-    
-      
+
+
     .column {
-      float: left;
-      width: 40%;
-      padding-top: 40px;
+        float: left;
+        width: 40%;
+        padding-top: 40px;
     }
-    
+
     /* Clearfix (clear floats) */
     .row::after {
-      content: "";
-      clear: both;
-    
+        content: "";
+        clear: both;
+
     }
+
     .row {
-  margin-left:30%;
-  width: 100%
+        margin-left: 30%;
+        width: 100%
     }
 
-    
-    th, td {
-      text-align: left;
-      padding-right: 30px;
-      padding-bottom: 10px
-    }
-    
 
-    
-    </style>
+    th,
+    td {
+        text-align: left;
+        padding-right: 30px;
+        padding-bottom: 10px
+    }
+</style>
 <h1>This is customer: {{ customer.Id }}:s personal information</h1>
 
 <div class="row">
     <div class="column">
-<table class="tb">
-    <tr>
-        <th>Id:</th>
-        <td>{{ customer.Id }}</td>
-    </tr>
-    <tr>
-        <th>First name:</th>
-        <td>{{ customer.GivenName }}</td>
-    </tr>
-    <tr>
-        <th>Last name:</th>
-        <td>{{ customer.Surname }}</td>
-    </tr>
-    <tr>
-        <th>Streetaddress:</th>
-        <td>{{ customer.Streetaddress }}</td>
-    </tr>
-    <tr>
-        <th>City:</th>
-        <td>{{ customer.City }}</td>
-    </tr>
-    <tr>
-        <th>Zipcode:</th>
-        <td>{{ customer.Zipcode }}</td>
-    </tr>
-    <tr>
-        <th>Country:</th>
-        <td>{{ customer.Country }}</td>
-    </tr>
-    <tr>
-        <th>Birthday:</th>
-        <td>{{ customer.Birthday }}</td>
-    </tr>
-    <tr>
-        <th>NationalId:</th>
-        <td>{{ customer.NationalId }}</td>
-    </tr>
-    <tr>
-        <th>Telephone country code:</th>
-        <td>{{ customer.TelephoneCountryCode }}</td>
-    </tr>
-    <tr>
-        <th>Telephone:</th>
-        <td>{{ customer.Telephone }}</td>
-    </tr>
-    <tr>
-        <th>Emailaddress:</th>
-        <td>{{ customer.EmailAddress }}</td>
-    </tr>
+        <table class="tb">
+            <tr>
+                <th>Id:</th>
+                <td>{{ customer.Id }}</td>
+            </tr>
+            <tr>
+                <th>First name:</th>
+                <td>{{ customer.GivenName }}</td>
+            </tr>
+            <tr>
+                <th>Last name:</th>
+                <td>{{ customer.Surname }}</td>
+            </tr>
+            <tr>
+                <th>Streetaddress:</th>
+                <td>{{ customer.Streetaddress }}</td>
+            </tr>
+            <tr>
+                <th>City:</th>
+                <td>{{ customer.City }}</td>
+            </tr>
+            <tr>
+                <th>Zipcode:</th>
+                <td>{{ customer.Zipcode }}</td>
+            </tr>
+            <tr>
+                <th>Country:</th>
+                <td>{{ customer.Country }}</td>
+            </tr>
+            <tr>
+                <th>Birthday:</th>
+                <td>{{ customer.Birthday }}</td>
+            </tr>
+            <tr>
+                <th>NationalId:</th>
+                <td>{{ customer.NationalId }}</td>
+            </tr>
+            <tr>
+                <th>Telephone country code:</th>
+                <td>{{ customer.TelephoneCountryCode }}</td>
+            </tr>
+            <tr>
+                <th>Telephone:</th>
+                <td>{{ customer.Telephone }}</td>
+            </tr>
+            <tr>
+                <th>Emailaddress:</th>
+                <td>{{ customer.EmailAddress }}</td>
+            </tr>
 
-</table>
+    </table>
+    </div>
+        <div class="column">
+    <table class="tb">
+            <th>Accounts:</th>
+            <th>Balance:</th>
+            <th>New transaction:</th>
+
+            {% for account in a %}
+
+            <tr>
+                <th><a href="{{ url_for('Transaktioner',id=account.Id ) }}">{{ account.AccountType }}, ID: {{ account.Id }}</a></th>
+                <td>{{ account.Balance }} :-</td>
+                <td><a href="{{ url_for('deposit',id=account.Id ) }}">New transaction</a></td>
+            </tr>
+            {% endfor %}
+            <th>Total balance:</th>
+                <td>
+                    {{ Saldo }}
+                </td>
+
+        </table>
+    </div>
 </div>
-    <div class="column">
-<table class="tb">
 
-    {% for account in a %}
-    <tr>
-        <th><a href="{{ url_for('Transaktioner',id=account.Id ) }}">{{ account.AccountType }}</a></th>
-
-
-        <td>{{ account.Balance }} :-</td>
-    </tr>
-    {% endfor %}
-</table>
-</div>
-</div>
-
-    <a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="btn-get-started animate__animated animate__fadeInUp">Edit customer</a>
-
-
+<a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="btn-get-started animate__animated animate__fadeInUp">Edit
+    customer</a>
 
 {% endblock %}

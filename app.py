@@ -17,33 +17,16 @@ app.config["SESSION_COOKIE_SAMESITE"] = "strict"
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
- 
-# import os
-# SECRET_KEY = os.urandom(32)
-# app.config['SECRET_KEY'] = SECRET_KEY
-
-# app.config.update(dict(
-#     SECRET_KEY="powerful secretkey",
-#     WTF_CSRF_SECRET_KEY="a csrf secret key"
-# ))
-
-# @app.route("/")
-# def startpage():
-#     trendingCategories = Customer.query.all()
-#     return render_template("index.html", trendingCategories=trendingCategories)
-
-
-# @app.route("/")
-# def customers():
-#     listOfCustomers = Customer.query.all()
-#     return render_template("customers.html",
-#                             customers=customers, listOfCustomers=listOfCustomers)
-
 
 @app.route("/")
 def startpage():
-    print("hello")
-    return render_template("index.html" )
+    account = Account.query.filter(Account.Balance)
+    balance = 0
+    allAccounts = Account.query.count()
+    customers = Customer.query.count()
+    for x in account:
+        balance += x.Balance
+    return render_template("index.html", balance=balance,allAccounts=allAccounts,customers=customers )
 
 @app.route("/logout")
 def logout():
@@ -218,9 +201,13 @@ def customerpage(id):
     Saldo = 0
     for accounts in customer.Accounts:
         Saldo = Saldo + accounts.Balance
-
-
     return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo, a=a )
+
+@app.route("/customer/account/newtransaction/<id>")
+def NewTransaction(id):
+    account = Account.query.filter_by(Id = id).first()
+    customer = Customer.query.filter_by(Id = id).first()
+    return render_template("newtransaction.html", account=account, customer = customer)
 
 
 
@@ -242,26 +229,27 @@ def Transaktioner(id):
 #     transaction = Transaction.query.all()
 #     return render_template("transaction.html", TRANSACTION=transaction)
 
-@app.route("/deposit", methods=['GET', 'POST'])
+@app.route("/deposit/<id>", methods=['GET', 'POST'])
 def deposit(id):
+    form = DepositForm()
     account = Account.query.filter_by(Id = id).first()
     customer = Customer.query.filter_by(Id = id).first()
-    form = DepositForm()
     date = datetime.now()
     
     if form.validate_on_submit():        
         account.Balance == account.Balance + form.Amount.data
-        # newtransaction = Transaction()
-        # newtransaction.Type = form.Type.data
-        # newtransaction.Operation = form.Operation.data
-        # newtransaction.Date = date
-        # newtransaction.Amount = form.Amount.data
-        # newtransaction.NewBalance == Account.Balance + form.Amount.data
-        # account.Transactions = [newtransaction]
-        # db.session.add(newtransaction)
+        newtransaction = Transaction()
+        newtransaction.Type = form.Type.data
+        newtransaction.Operation = form.Operation.data
+        newtransaction.Date = date
+        newtransaction.Amount = form.Amount.data
+        newtransaction.NewBalance == Account.Balance + form.Amount.data
+        account.Transactions = [newtransaction]
+        db.session.add(newtransaction)
         db.session.commit()
+        return redirect("/customer")
 
-    return render_template("deposit.html", account=account, customer = customer)
+    return render_template("deposit.html", account=account, customer = customer, date = date, form = form)
 
 
 

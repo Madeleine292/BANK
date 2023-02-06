@@ -14,7 +14,9 @@
   <link href="../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -48,22 +50,31 @@
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
+      </tr>
+      </table>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="active " href="{{ url_for('startpage') }}">Startpage</a></li>
           <li><a href="{{ url_for('customers') }}">Customers</a></li>
           <li><a href="{{ url_for('newcustomer') }}">New Customer</a></li>
           <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
-          <a href="" class="btn-get-started animate__animated animate__fadeInUp">Logged in user: {{ current_user.email }}  </a>
+          <a href="" class="btn-get-started animate__animated animate__fadeInUp">Logged in user: {{ current_user.email
+            }} </a>
           <!-- User: {{ current_user.email }}   -->
 
           {% if current_user.is_authenticated %}
           <li class="sidenav__list-item {{ 'active' if activePage == 'secretPage' }}">
-              <a href="/logout">
-                  <!-- <i class="bx bx-list-ul"></i> -->
-                  Logout</a>
+            <a href="/logout">
+              <!-- <i class="bx bx-list-ul"></i> -->
+              Logout
+            </a>
           </li>
           {% endif %}
+
+
+
+
+
           <!-- <li><a href="team.html">Team</a></li>
           <li><a href="blog.html">Blog</a></li> -->
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
@@ -94,15 +105,40 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex justify-cntent-center align-items-center">
     <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
-      
+
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
           {% block content %}
+          <div>
+            <table class="tableSP">
+              <tr>
+                <th>Total balance:</th>
+                <td>{{ balance }} USD</td>
+              </tr>
+              <tr>
+                <th>Total customers:</th>
+                <td>{{ customers }}</td>
+              </tr>
+              <tr>
+                <th>Total accounts:</th>
+                <td>{{ allAccounts }}</td>
+              </tr>
+          </div>
+
+
+
+
+
+
+
           <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Laurentzèn bank</span></h2>
           <p class="animate__animated animate__fadeInUp">Designed to make your job easier</p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Sign in here</a>
-         {% endblock %}
+          
+          {% endblock %}
+          
+
         </div>
       </div>
 
@@ -112,11 +148,10 @@
 
 
 
-  
-    <link href="../static/assets/css/style.css" rel="stylesheet">
-    
+  <link href="../static/assets/css/style.css" rel="stylesheet">
 
-  
+
+
   <!-- <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->
 
   <!-- Vendor JS Files -->
