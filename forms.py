@@ -26,7 +26,9 @@ class DepositForm(FlaskForm):
     Operation = SelectField('Operation',choices=[('Deposit cash')])
     Created = DateField(label='Created', validators=[validators.DataRequired()], default= datetime.utcnow)
     Amount = DecimalField('Amount', validators=[validators.DataRequired()])
-    NewBalance = DecimalField('NewBalance', validators=[validators.DataRequired()])
+    # NewBalance = DecimalField('NewBalance', validators=[validators.DataRequired()])
     
-
+class WithdrawForm(FlaskForm):
+    #todo icke negativt belopp
+    amount = IntegerField('amount', validators=[validators.DataRequired(), validators.NumberRange(min=1,max=1000000)])
 

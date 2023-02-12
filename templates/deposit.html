@@ -4,7 +4,8 @@
 
 {% for transaction in t %}
 <tr>
-    <th><a href="{{ url_for('deposit',id=account.Id ) }}">{{ account.AccountType }}</a></th>
+    
+  <th><a href="{{ url_for('deposit',id=account.Id ) }}">{{ account.AccountType }}</a></th>
 
     <td>{{ transaction.newtransaction }} :-</td>
 </tr>
@@ -31,7 +32,8 @@ Transactions
       {{ form.Operation(placeholder="Enter Operation") }}<br><br>
       {{ form.Created(placeholder="Enter city") }}<br><br>
       {{ form.Amount(placeholder="Enter Amount") }}<br><br>
-      {{ NewBalance }}<br><br>
+   
+      
       
 
   

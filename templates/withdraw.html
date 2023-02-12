@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+{% for transaction in t %}
+<tr>
+    <th><a href="{{ url_for('withdraw',id=account.Id ) }}">{{ account.AccountType }}</a></th>
+
+    <td>{{ transaction.newtransaction }} :-</td>
+</tr>
+{% endfor %}
+
+
+{% block title %}
+Withdraw
+{% endblock %}
+
+{% block content %}
+
+    {% for field, errors in form.errors.items() %}
+    {{ form[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+
+    <h1>Ta ut från {{ account.AccountType }}</h1>
+
+   <form method="post">
+    {{ form.csrf_token }}
+    
+      {{ form.amount(placeholder="Belopp") }}
+
+   
+    <input type="submit" value="Spara">
+   </form>
+{% endblock %}    

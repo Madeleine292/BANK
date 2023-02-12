@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import Customer, Account, Transaction
 from model import db, seedData
-from forms import NewCustomerForm, DepositForm
+from forms import NewCustomerForm, DepositForm, WithdrawForm
 import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
@@ -235,9 +235,12 @@ def deposit(id):
     account = Account.query.filter_by(Id = id).first()
     customer = Customer.query.filter_by(Id = id).first()
     date = datetime.now()
-    
-    if form.validate_on_submit():        
-        account.Balance == account.Balance + form.Amount.data
+    # newtransaction = Transaction.query.filter_by(Id = id).add 
+    if form.validate_on_submit(): 
+        
+        # if account:      
+        account = Account()
+        account.Balance = account.Balance + form.Amount.data
         newtransaction = Transaction()
         newtransaction.Type = form.Type.data
         newtransaction.Operation = form.Operation.data
@@ -247,11 +250,35 @@ def deposit(id):
         account.Transactions = [newtransaction]
         db.session.add(newtransaction)
         db.session.commit()
-        return redirect("/customer")
+        return redirect("/customer/" + str(account.CustomerId))
 
     return render_template("deposit.html", account=account, customer = customer, date = date, form = form)
 
+@app.route("/withdraw/<int:id>", methods=['GET', 'POST'])
+@auth_required()
+@roles_accepted("Admin","Staff")
+def withdraw(id):
+    customer = Customer.query.filter_by(Id=id).first()
+    form = WithdrawForm()
 
+    ownValidationOk = True
+    if request.method == 'POST':
+        # todo Lägg till validering mot databas 
+        # if form.amount.data > customer.amount 
+        # GENERERA FEL
+        form.amount.errors = form.amount.errors + ('Belopp to large',)
+        ownValidationOk = False
+
+
+    if ownValidationOk and form.validate_on_submit():
+        customer.Amount = customer.Amount - form.amount.data
+        # insert into transactions
+        db.session.commit()
+
+        # todo ändra i databasen
+        #return redirect("/customer/" + str(id))
+        return redirect("/customers")
+    return render_template("withdraw.html", form=form, customer=customer )
 
 
 
