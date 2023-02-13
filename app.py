@@ -237,17 +237,15 @@ def deposit(id):
     date = datetime.now()
     # newtransaction = Transaction.query.filter_by(Id = id).add 
     if form.validate_on_submit(): 
-        
-        # if account:      
-        account = Account()
         account.Balance = account.Balance + form.Amount.data
         newtransaction = Transaction()
         newtransaction.Type = form.Type.data
         newtransaction.Operation = form.Operation.data
         newtransaction.Date = date
         newtransaction.Amount = form.Amount.data
-        newtransaction.NewBalance == Account.Balance + form.Amount.data
-        account.Transactions = [newtransaction]
+        newtransaction.NewBalance = account.Balance + form.Amount.data
+        newtransaction.AccountId = account.Id
+        #account.Transactions = [newtransaction]
         db.session.add(newtransaction)
         db.session.commit()
         return redirect("/customer/" + str(account.CustomerId))
