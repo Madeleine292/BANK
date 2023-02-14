@@ -21,14 +21,11 @@ class NewCustomerForm(FlaskForm):
     EmailAddress = StringField('emailaddress', validators=[validators.DataRequired()])
     Telephone = StringField('Telephone', validators=[validators.DataRequired()])
 
-class DepositForm(FlaskForm):
-    Type = SelectField('Type',choices=[('Personal'),('Checking'),('Savings')])
-    Operation = SelectField('Operation',choices=[('Deposit cash')])
-    Created = DateField(label='Created', validators=[validators.DataRequired()], default= datetime.utcnow)
+class TransactionForm(FlaskForm):
     Amount = DecimalField('Amount', validators=[validators.DataRequired()])
-    # NewBalance = DecimalField('NewBalance', validators=[validators.DataRequired()])
+
     
-class WithdrawForm(FlaskForm):
-    #todo icke negativt belopp
-    amount = IntegerField('amount', validators=[validators.DataRequired(), validators.NumberRange(min=1,max=1000000)])
+# class WithdrawForm(FlaskForm):
+#     #todo icke negativt belopp
+#     amount = IntegerField('amount', validators=[validators.DataRequired(), validators.NumberRange(min=1,max=1000000)])
 

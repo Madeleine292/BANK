@@ -104,19 +104,20 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
     <table class="tb">
             <th>Accounts:</th>
             <th>Balance:</th>
-            <th>New transaction:</th>
+
 
             {% for account in a %}
 
             <tr>
                 <th><a href="{{ url_for('Transaktioner',id=account.Id ) }}">{{ account.AccountType }}, ID: {{ account.Id }}</a></th>
                 <td>{{ account.Balance }} :-</td>
-                <td><a href="{{ url_for('deposit',id=account.Id ) }}">New transaction</a></td>
+                <td><a href="{{ url_for('deposit',id=account.Id ) }}">Deposit</a></td>
+                <td><a href="{{ url_for('withdraw',id=account.Id ) }}">Withdraw</a></td>
             </tr>
             {% endfor %}
             <th>Total balance:</th>
                 <td>
-                    {{ Saldo }}
+                    {{ Saldo }} :-
                 </td>
 
         </table>
