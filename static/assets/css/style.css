@@ -297,6 +297,12 @@ table.tableSP table, table.tableSP th, table.tableSP td{
   border-right: 0px;
 }
 
+table.tableTransfer table, table.tableTransfer th, table.tableTransfer td{
+  border-collapse: collapse;
+  text-align: left;
+  background-color: rgb(63, 63, 60, 0.3);
+}
+
 
 
 

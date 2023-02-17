@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block title %}
+Transfer
+{% endblock %}
+
+{% block content %}
+
+<table class="tableTransfer">
+    {{ form.csrf_token }}
+    <h2>Transfer</h2>
+    <tbody>
+        <tr>
+            <td>From Account</td>
+            <td>{{ form.AccountId }}</td>
+        </tr>
+        <tr>
+            <td>To Account</td>
+            <td>{{ form.AccountId }}</td>
+        </tr>
+        <tr>
+            <td>Amount</td>
+            <td>{{ form.Amount }}</td>
+        </tr>
+    </tbody>
+    </table>
+    <input class="input" type="submit" value="Save">
+    <br>
+
+{% endblock %}    

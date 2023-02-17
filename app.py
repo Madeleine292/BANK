@@ -3,11 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import Customer, Account, Transaction
 from model import db, seedData
-from forms import NewCustomerForm, TransactionForm
+from forms import NewCustomerForm, TransactionForm, TransferForm
 import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
  
+
+date = datetime.now()
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
@@ -27,6 +30,27 @@ def startpage():
     for x in account:
         balance += x.Balance
     return render_template("index.html", balance=balance,allAccounts=allAccounts,customers=customers )
+
+@app.route("/admin", methods=['GET', 'POST'])
+@auth_required()
+@roles_accepted("Admin")
+def admin():
+    q = request.args.get('q', '')
+    customers = Customer.query
+    customers = customers.filter(
+    Customer.Id.like( q )|
+    Customer.NationalId.like( q ))
+    if q == Customer.Id:
+        return render_template("admin.html",  q=q, customers = customers)
+    else:
+        raise ValueError("Wrong customerID")
+
+
+
+
+
+
+
 
 @app.route("/logout")
 def logout():
@@ -201,7 +225,7 @@ def customerpage(id):
     Saldo = 0
     for accounts in customer.Accounts:
         Saldo = Saldo + accounts.Balance
-    return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo, a=a )
+    return render_template("customer.html", customer=customer, activePage="customersPage", Saldo=Saldo, a = a )
 
 @app.route("/customer/account/newtransaction/<id>")
 def NewTransaction(id):
@@ -235,7 +259,6 @@ def deposit(id):
     account = Account.query.filter_by(Id = id).first()
     customer = Customer.query.filter_by(Id = id).first()
     transaktion = Transaction.query.filter_by(Id = id).first()
-    date = datetime.now()
 
     if form.validate_on_submit(): 
         account.Balance = account.Balance + form.Amount.data
@@ -258,7 +281,7 @@ def withdraw(id):
     account = Account.query.filter_by(Id = id).first()
     customer = Customer.query.filter_by(Id = id).first()
     transaktion = Transaction.query.filter_by(Id = id).first()
-    date = datetime.now()
+    
 
     if form.validate_on_submit(): 
         account.Balance = account.Balance - form.Amount.data
@@ -300,6 +323,30 @@ def withdraw(id):
 #         #return redirect("/customer/" + str(id))
 #         return redirect("/customers")
 #     return render_template("withdraw.html", form=form, customer=customer )
+
+@app.route("/transfer/<id>", methods=['GET', 'POST'])
+# @auth_required()
+# @roles_accepted("Admin","Staff")
+def Transfer(id):
+    form =TransferForm()
+    sender = Account.query.filter_by(Id = id).first()
+    reciver = Account.query.filter_by(Id = id).first()
+    
+    if form.validate_on_submit():
+        sender.Balance = sender.Balance - form.Amount.data
+        reciver.Balance = reciver.Balance + form.Amount.data
+
+        transfer = Transaction()
+        transfer.Type = "Transfer"
+        transfer.Date = date
+        transfer.Amount = form.Amount.data
+        transfer.NewBalance = sender.Balance - form.Amount.data
+        transfer.NewBalance = reciver.Balance + form.Amount.data
+        db.session.add(transfer)
+        db.session.commit()
+
+        return redirect("/customer/account/<id>")
+    return render_template("transfer.html", sender=sender, reciver = reciver, form=form)
 
 
 
