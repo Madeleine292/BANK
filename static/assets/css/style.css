@@ -284,7 +284,6 @@ table.table3 table, table.table3 th, table.table3 td {
 }
 /* table startpage */
 table.tableSP table, table.tableSP th, table.tableSP td{
-  left: 500px;
   border-collapse: collapse;
   text-align: left;
   color: rgb(217, 182, 165);

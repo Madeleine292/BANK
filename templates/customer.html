@@ -113,6 +113,7 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
                 <td>{{ account.Balance }} :-</td>
                 <td><a href="{{ url_for('deposit',id=account.Id ) }}">Deposit</a></td>
                 <td><a href="{{ url_for('withdraw',id=account.Id ) }}">Withdraw</a></td>
+                <td><a href="{{ url_for('Transfer',id=account.Id ) }}">Transfer</a></td>
                 
             </tr>
             {% endfor %}
@@ -122,8 +123,6 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
                 </td>
 
         </table>
-       
-        <td><a href="{{ url_for('Transfer',id=customer.Id ) }}">Transfer</a></td>
         
     </div>
 </div>

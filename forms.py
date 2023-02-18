@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField, validators, ValidationError, DateField
 from wtforms.fields import IntegerField, SelectField, DecimalField
 from datetime import datetime
+from model import Account
 
 def emailContains(form, field):
     if not field.data.endswith('.se'):
@@ -26,7 +27,7 @@ class TransactionForm(FlaskForm):
 
 class TransferForm(FlaskForm):
     Amount = DecimalField('Amount', validators=[validators.DataRequired(), validators.NumberRange(min=1,max=5000)])
-    AccountId = IntegerField('zipcode', validators=[validators.DataRequired()])
+    Id = IntegerField('AccountId', validators=[validators.DataRequired()])
     
 # class WithdrawForm(FlaskForm):
 #     #todo icke negativt belopp

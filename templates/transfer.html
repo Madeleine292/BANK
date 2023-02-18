@@ -5,26 +5,29 @@ Transfer
 {% endblock %}
 
 {% block content %}
-
+<th><a href="{{ url_for('Transfer',id=account.Id ) }}"></a></th>
 <table class="tableTransfer">
     {{ form.csrf_token }}
+   
     <h2>Transfer</h2>
     <tbody>
         <tr>
             <td>From Account</td>
-            <td>{{ form.AccountId }}</td>
+            <td>{{ account.AccountType }}: {{ account.Id }}</td>
         </tr>
         <tr>
             <td>To Account</td>
-            <td>{{ form.AccountId }}</td>
+            <td>{{ form.Id }}</td>
         </tr>
         <tr>
             <td>Amount</td>
             <td>{{ form.Amount }}</td>
+
         </tr>
+
     </tbody>
     </table>
     <input class="input" type="submit" value="Save">
-    <br>
+
 
 {% endblock %}    
