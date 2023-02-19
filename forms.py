@@ -27,7 +27,7 @@ class TransactionForm(FlaskForm):
 
 class TransferForm(FlaskForm):
     Amount = DecimalField('Amount', validators=[validators.DataRequired(), validators.NumberRange(min=1,max=5000)])
-    Id = IntegerField('AccountId', validators=[validators.DataRequired()])
+    Id = IntegerField('Id', validators=[validators.DataRequired()])
     
 # class WithdrawForm(FlaskForm):
 #     #todo icke negativt belopp

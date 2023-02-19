@@ -5,10 +5,16 @@ Transfer
 {% endblock %}
 
 {% block content %}
+{% for field, errors in form.errors.items() %}
+{{ form[field].label }}: {{ ', '.join(errors) }}
+{% endfor %}
+
 <th><a href="{{ url_for('Transfer',id=account.Id ) }}"></a></th>
+<form class="form-control-login" method="post">
 <table class="tableTransfer">
     {{ form.csrf_token }}
-   
+
+
     <h2>Transfer</h2>
     <tbody>
         <tr>
@@ -26,8 +32,8 @@ Transfer
         </tr>
 
     </tbody>
-    </table>
-    <input class="input" type="submit" value="Save">
+</table>
+<input type="submit" value="Save">
+</form>
 
-
-{% endblock %}    
+{% endblock %}
