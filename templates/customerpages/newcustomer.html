@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+
+{% block title %}
+New customer
+{% endblock %}
+
+{% block content %}
+
+    {% for field, errors in form.errors.items() %}
+    {{ form[field].label }}: {{ ', '.join(errors) }}
+    </br>
+    {% endfor %}
+
+    <h3>
+      Fill out the form with the customers information. Then press "Save"
+   </h3>  
+   <form method="post">
+      {{ form.csrf_token }}
+      {{ form.GivenName(placeholder="Enter firstname") }} <br><br>
+      {{ form.Surname(placeholder="Enter lastname") }}<br><br>
+      {{ form.City(placeholder="Enter city") }}<br><br>
+      {{ form.Streetaddress(placeholder="Enter streetaddress") }}<br><br>
+      {{ form.Zipcode(placeholder="Enter zipcode") }}<br><br>
+      {{ form.Country(placeholder="Enter country") }}<br><br>
+      {{ form.NationalId(placeholder="Enter social security number") }}<br><br>
+      {{ form.Birthday(placeholder="Enter birthday") }}<br><br>
+      {{ form.EmailAddress(placeholder="Enter email") }}<br><br>
+      {{ form.Telephone(placeholder="Enter Telephone") }}<br><br>
+      
+
+  
+  
+       {{ form.CountryCode() }}
+    <input type="submit" value="Save">
+    <p id="reminder">Remember to always check the customers<br> identification before adding<br> the customer to our system</p>
+   </form>
+{% endblock %}    

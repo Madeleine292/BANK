@@ -10,19 +10,19 @@
 <table class="tb2" style="color:white">
     <tr>
         <th>Name
-            <a href="{{  url_for('customers',sortColumn='namn',sortOrder='asc', q=q, page=page  ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='namn',sortOrder='asc', q=q, page=page  ) }}">
                 <i class='bx bx-up-arrow-alt'></i>
             </a>
-            <a href="{{  url_for('customers',sortColumn='namn',sortOrder='desc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='namn',sortOrder='desc', q=q, page=page ) }}">
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
 
         <th>City
-            <a href="{{  url_for('customers',sortColumn='city',sortOrder='asc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='city',sortOrder='asc', q=q, page=page ) }}">
                 <i class='bx bx-up-arrow-alt'></i>
             </a>
-            <a href="{{  url_for('customers',sortColumn='city',sortOrder='desc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='city',sortOrder='desc', q=q, page=page ) }}">
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
@@ -31,27 +31,27 @@
         <th>Streetaddress</th> -->
 
         <th>Customer number
-            <a href="{{  url_for('customers',sortColumn='id',sortOrder='asc', q=q, page=page  ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='id',sortOrder='asc', q=q, page=page  ) }}">
                 <i class='bx bx-up-arrow-alt'></i>
             </a>
-            <a href="{{  url_for('customers',sortColumn='id',sortOrder='desc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='id',sortOrder='desc', q=q, page=page ) }}">
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
 
         <th>Social security number
-            <a href="{{  url_for('customers',sortColumn='NationalId',sortOrder='asc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='NationalId',sortOrder='asc', q=q, page=page ) }}">
                 <i class='bx bx-up-arrow-alt'></i>
             </a>
-            <a href="{{  url_for('customers',sortColumn='NationalId',sortOrder='desc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='NationalId',sortOrder='desc', q=q, page=page ) }}">
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
         <th>Streetaddress
-            <a href="{{  url_for('customers',sortColumn='Streetaddress',sortOrder='asc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='Streetaddress',sortOrder='asc', q=q, page=page ) }}">
                 <i class='bx bx-up-arrow-alt'></i>
             </a>
-            <a href="{{  url_for('customers',sortColumn='Streetaddress',sortOrder='desc', q=q, page=page ) }}">
+            <a href="{{  url_for('customerpage.customers',sortColumn='Streetaddress',sortOrder='desc', q=q, page=page ) }}">
                 <i class='bx bx-down-arrow-alt'></i>
             </a>
         </th>
@@ -66,9 +66,9 @@
         <td>{{ customer.NationalId }}</td>
         <td>{{ customer.Streetaddress }}</td>
         <td>
-            <!-- <a class="customerlink colororange" href="{{ url_for('customerpage',id=customer.Id ) }}">More info</a> -->
+    
 
-            <a  href="{{ url_for('customerpage',id=customer.Id ) }}" class="btn3" >More info</a>
+            <a  href="{{ url_for('customerpage.customerpage',id = customer.Id ) }}" class="btn3" >More info</a>
 
 
         </td>
@@ -79,7 +79,7 @@
             <td>
                 {% if has_prev %}
                 <a class="btn2"
-                    href="{{  url_for('customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page - 1) }}">
+                    href="{{  url_for('customerpage.customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page - 1) }}">
                     Prev
                 </a>
             </td>
@@ -91,7 +91,7 @@
             <td>
                 {% if has_next %}
                 <a class="btn2"
-                    href="{{  url_for('customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page + 1) }}">
+                    href="{{  url_for('customerpage.customers',sortColumn=sortColumn,sortOrder=sortOrder, q=q, page=page + 1) }}">
                     Next
                 </a>
             </td>
@@ -108,7 +108,7 @@
             {{ c.City }}
         </td>
         <td>
-            <a href="{{ url_for('editcustomer',id=c.Id ) }}">
+            <a href="{{ url_for('customerpage.editcustomer',id=c.Id ) }}">
                 <i class='bx bx-edit-alt'></i>
             </a>
         </td>

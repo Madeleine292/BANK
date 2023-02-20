@@ -39,7 +39,7 @@ Account number: {{ account.Id }} <br>Balance: {{account.Balance}}
             <td>
                 {% if has_prev %}
                 <a class="btn"
-                    href="{{  url_for('Transaktioner', id=account.Id, page=page - 1) }}">
+                    href="{{  url_for('customerpage.Transaktioner', id=account.Id, page=page - 1) }}">
                     Prev
                 </a>
             </td>
@@ -51,7 +51,7 @@ Account number: {{ account.Id }} <br>Balance: {{account.Balance}}
             <td>
                 {% if has_next %}
                 <a class="btn"
-                    href="{{  url_for('Transaktioner',id=account.Id, page=page + 1) }}">
+                    href="{{  url_for('customerpage.Transaktioner',id=account.Id, page=page + 1) }}">
                     Next
                 </a>
             </td>

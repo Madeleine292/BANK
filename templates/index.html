@@ -55,8 +55,8 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="active " href="{{ url_for('startpage') }}">Startpage</a></li>
-          <li><a href="{{ url_for('customers') }}">Customers</a></li>
-          <li><a href="{{ url_for('newcustomer') }}">New Customer</a></li>
+          <li><a href="{{ url_for('customerpage.customers') }}">Customers</a></li>
+          <li><a href="{{ url_for('customerpage.newcustomer') }}">New Customer</a></li>
           <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Logged in user: {{ current_user.email
             }} </a>

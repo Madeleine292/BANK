@@ -109,7 +109,7 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
             {% for account in a %}
 
             <tr>
-                <th><a href="{{ url_for('Transaktioner',id=account.Id ) }}">{{ account.AccountType }}, ID: {{ account.Id }}</a></th>
+                <th><a href="{{ url_for('customerpage.Transaktioner',id=account.Id ) }}">{{ account.AccountType }}, ID: {{ account.Id }}</a></th>
                 <td>{{ account.Balance }} :-</td>
                 <td><a href="{{ url_for('deposit',id=account.Id ) }}">Deposit</a></td>
                 <td><a href="{{ url_for('withdraw',id=account.Id ) }}">Withdraw</a></td>
@@ -127,7 +127,7 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
     </div>
 </div>
 
-<a href="{{ url_for('editcustomer',id=customer.Id ) }}" class="btn-get-started animate__animated animate__fadeInUp">Edit
+<a href="{{ url_for('customerpage.editcustomer',id=customer.Id ) }}" class="btn-get-started animate__animated animate__fadeInUp">Edit
     customer</a>
 
 {% endblock %}
