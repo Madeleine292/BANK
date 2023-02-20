@@ -1,49 +1,39 @@
-# import unittest
-# from flask import Flask, render_template, request, url_for, redirect
-# from app import app
-# from model import db, Customer
-
-# from sqlalchemy import create_engine
-
-
-# class FormsTestCases(unittest.TestCase):
-#     def __init__(self, *args, **kwargs):
-#         super(PersonerTestCases, self).__init__(*args, **kwargs)
-#         self.ctx = app.app_context()
-#         self.ctx.push()
-#         #self.client = app.test_client()
-#         app.config["SERVER_NAME"] = "stefan.se"
-#         app.config['WTF_CSRF_ENABLED'] = False
-#         app.config['WTF_CSRF_METHODS'] = []  # This is the magic
-#         app.config['TESTING'] = True
-#         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
-
-#         db.init_app(app)
-#         db.app = app
-#         db.create_all()
-        
-#     def tearDown(self):
-#         #self.ctx.pop()
-#         pass
-
-#     def test_when_creating_new_should_validate_name_ends_with_se(self):
-#         test_client = app.test_client()
-#         with test_client:
-#             url = '/newcustomer'
-#             response = test_client.post(url, data={ "name":"Kalle", "city":"Teststad", "age":"31", "countryCode":"SE" })
-#             s = response.data.decode("utf-8") 
-#             ok = 'Måste sluta på .se dummer' in s
-#             self.assertTrue(ok)
-
-#     def test_when_creating_new_should_be_ok_when_name_is_ok(self):
-#         test_client = app.test_client()
-#         with test_client:
-#             url = '/newcustomer'
-#             response = test_client.post(url, data={ "name":"Kalle.se", "city":"Teststad", "age":"12", "countryCode":"SE" })
-#             self.assertEqual('302 FOUND', response.status)
+from flask_sqlalchemy import SQLAlchemy
+import barnum
+import random
+from datetime import datetime
+from datetime import timedelta
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
+from flask_security.models import fsqla_v3 as fsqla
+from model import Account, Transaction
 
 
 
 
-# if __name__ == "__main__":
-#     unittest.main()
+def test_deposit():
+    newaccount = Account()
+    newaccount.Id = 3
+    newaccount.Balance = 0
+    transaction = Transaction()
+    transaction.Amount = 10
+    create_transaction(newaccount, transaction, "Payment")
+
+    assert newaccount.Balance == 10
+    assert transaction.NewBalance == 10
+    assert newaccount.Id == transaction.AccountId
+    assert transaction.Date != None
+    assert transaction.Type == "Debit"
+    assert transaction.Operation == "Payment"
+    assert len(newaccount.Transactions) > 0
+    assert transaction in newaccount.Transactions
+
+def create_transaction(account, transaction, operation):
+    now = datetime.now()
+
+    account.Balance = account.Balance + transaction.Amount
+    transaction.NewBalance = account.Balance
+    transaction.AccountId = account.Id
+    transaction.Date = now
+    transaction.Type = "Debit"
+    transaction.Operation = operation
+    account.Transactions.append(transaction)

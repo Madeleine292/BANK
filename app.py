@@ -282,22 +282,25 @@ def withdraw(id):
     account = Account.query.filter_by(Id = id).first()
     customer = Customer.query.filter_by(Id = id).first()
     transaktion = Transaction.query.filter_by(Id = id).first()
-    
+    large = ['Too large']
 
     if form.validate_on_submit(): 
-        account.Balance = account.Balance - form.Amount.data
-        newtransaction = Transaction()
-        newtransaction.Type = transaktion.Type
-        newtransaction.Operation = "Withdraw cash"
-        newtransaction.Date = date
-        newtransaction.Amount = form.Amount.data
-        newtransaction.NewBalance = account.Balance - form.Amount.data
-        newtransaction.AccountId = account.Id
-        db.session.add(newtransaction)
-        db.session.commit()
-        return redirect("/customer/" + str(account.CustomerId))
+        if account.Balance < form.Amount.data:
+            form.Amount.errors = form.Amount.errors + large
+        else:
+            account.Balance = account.Balance - form.Amount.data
+            newtransaction = Transaction()
+            newtransaction.Type = transaktion.Type
+            newtransaction.Operation = "Withdraw cash"
+            newtransaction.Date = date
+            newtransaction.Amount = form.Amount.data
+            newtransaction.NewBalance = account.Balance - form.Amount.data
+            newtransaction.AccountId = account.Id
+            db.session.add(newtransaction)
+            db.session.commit()
+            return redirect("/customer/" + str(account.CustomerId))
 
-    return render_template("withdraw.html", account=account, customer = customer, form = form, transaktion = transaktion)
+    return render_template("withdraw.html", account=account, customer = customer, form = form, transaktion = transaktion, large = large)
 
 # @app.route("/withdraw/<int:id>", methods=['GET', 'POST'])
 # @auth_required()
@@ -406,32 +409,35 @@ def Transfer(id):
     receiver = Account.query.filter_by(Id = form.Id.data).first()
     transactionSender = Transaction() 
     transactionReceiver = Transaction()
+    large = ['Too large']
+           
+    if form.validate_on_submit(): 
+        if account.Balance < form.Amount.data:
+            form.Amount.errors = form.Amount.errors + large
+        else:
+            transactionSender.Amount = form.Amount.data
+            account.Balance = account.Balance - transactionSender.Amount
+            transactionSender.NewBalance = account.Balance
+            transactionSender.AccountId = account.Id
+            transactionSender.Date = date
+            transactionSender.Type = "Credit"
+            transactionSender.Operation = "Transfer"
 
-    if form.validate_on_submit():
+            transactionReceiver.Amount= form.Amount.data
+            receiver.Balance = receiver.Balance + transactionReceiver.Amount
+            transactionReceiver.NewBalance = receiver.Balance
+            transactionReceiver.AccountId = receiver.Id
+            transactionReceiver.Date = date
+            transactionReceiver.Type = "Debit"
+            transactionReceiver.Operation = "Transfer"
 
-        transactionSender.Amount = form.Amount.data
-        account.Balance = account.Balance - transactionSender.Amount
-        transactionSender.NewBalance = account.Balance
-        transactionSender.AccountId = account.Id
-        transactionSender.Date = date
-        transactionSender.Type = "Credit"
-        transactionSender.Operation = "Transfer"
+            db.session.add(account)
+            db.session.add(receiver)
+            db.session.add(transactionReceiver)
+            db.session.add(transactionSender)
+            db.session.commit()
 
-        transactionReceiver.Amount= form.Amount.data
-        receiver.Balance = receiver.Balance + transactionReceiver.Amount
-        transactionReceiver.NewBalance = receiver.Balance
-        transactionReceiver.AccountId = receiver.Id
-        transactionReceiver.Date = date
-        transactionReceiver.Type = "Debit"
-        transactionReceiver.Operation = "Transfer"
-
-        db.session.add(account)
-        db.session.add(receiver)
-        db.session.add(transactionReceiver)
-        db.session.add(transactionSender)
-        db.session.commit()
-
-        return redirect("/customer/" + str(account.CustomerId))
+            return redirect("/customer/" + str(account.CustomerId))
     return render_template("transfer.html",
                                                     form=form,
                                                     account = account, 
