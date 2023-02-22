@@ -37,3 +37,31 @@ def create_transaction(account, transaction, operation):
     transaction.Type = "Debit"
     transaction.Operation = operation
     account.Transactions.append(transaction)
+
+def test_withdraw():
+    newaccount = Account()
+    newaccount.Id = 3
+    newaccount.Balance = 0
+    transaction = Transaction()
+    transaction.Amount = 10
+    create_transaction(newaccount, transaction, "Payment")
+
+    assert newaccount.Balance == 10
+    assert transaction.NewBalance == 10
+    assert newaccount.Id == transaction.AccountId
+    assert transaction.Date != None
+    assert transaction.Type == "Credit"
+    assert transaction.Operation == "Withdraw"
+    assert len(newaccount.Transactions) > 0
+    assert transaction in newaccount.Transactions
+
+def create_transaction(account, transaction, operation):
+    now = datetime.now()
+
+    account.Balance = account.Balance - transaction.Amount
+    transaction.NewBalance = account.Balance
+    transaction.AccountId = account.Id
+    transaction.Date = now
+    transaction.Type = "Credit"
+    transaction.Operation = operation
+    account.Transactions.append(transaction)

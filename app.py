@@ -8,7 +8,7 @@ import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
 from areas.customerpage import customersBluePrint
-# from areas.transactionpage import transactionsBluePrint
+
  
 
 date = datetime.now()
@@ -23,6 +23,11 @@ app.config["SESSION_COOKIE_SAMESITE"] = "strict"
 db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
+
+
+app.register_blueprint(customersBluePrint)
+
+
 
 @app.route("/")
 def startpage():
@@ -65,33 +70,6 @@ def logout():
 @roles_accepted("Admin")
 def adminblblapage():
     return render_template("adminblabla.html", activePage="secretPage" )
-
-
-
-app.register_blueprint(customersBluePrint)
-# app.register_blueprint(transactionsBluePrint)
-
-
-
-
-
-
-
-    
-
-
-
-
-@app.route("/customer/account/newtransaction/<id>")
-def NewTransaction(id):
-    account = Account.query.filter_by(Id = id).first()
-    customer = Customer.query.filter_by(Id = id).first()
-    return render_template("newtransaction.html", account=account, customer = customer)
-
-
-
-
-
 
 @app.route("/deposit/<id>", methods=['GET', 'POST'])
 def deposit(id):
@@ -141,104 +119,6 @@ def withdraw(id):
 
     return render_template("transactionspages/withdraw.html", account=account, customer = customer, form = form, transaktion = transaktion, large = large)
 
-# @app.route("/withdraw/<int:id>", methods=['GET', 'POST'])
-# @auth_required()
-# @roles_accepted("Admin","Staff")
-# def withdraw(id):
-#     customer = Customer.query.filter_by(Id=id).first()
-#     form = WithdrawForm()
-
-#     ownValidationOk = True
-#     if request.method == 'POST':
-#         # todo Lägg till validering mot databas 
-#         # if form.amount.data > customer.amount 
-#         # GENERERA FEL
-#         form.amount.errors = form.amount.errors + ('Belopp to large',)
-#         ownValidationOk = False
-
-
-#     if ownValidationOk and form.validate_on_submit():
-#         customer.Amount = customer.Amount - form.amount.data
-#         # insert into transactions
-#         db.session.commit()
-
-#         # todo ändra i databasen
-#         #return redirect("/customer/" + str(id))
-#         return redirect("/customers")
-#     return render_template("withdraw.html", form=form, customer=customer )
-
-# @app.route("/transfer/<id>", methods=['GET', 'POST'])
-# @auth_required()
-# @roles_accepted("Admin","Staff")
-# def Transfer(id):
-#     form =TransferForm()
-#     sender = Account.query.filter_by(Id = id).first()
-#     reciver = Account.query.filter_by(Id = id).first()
-    
-#     if form.validate_on_submit():
-#         sender.Balance = sender.Balance - form.Amount.data
-#         reciver.Balance = reciver.Balance + form.Amount.data
-
-#         transfer = Transaction()
-#         transfer.Type = "Transfer"
-#         transfer.Date = date
-#         transfer.Amount = form.Amount.data
-#         transfer.NewBalance = sender.Balance - form.Amount.data
-#         transfer.NewBalance = reciver.Balance + form.Amount.data
-#         db.session.add(transfer)
-#         db.session.commit()
-
-#         return redirect("/customer/account/<id>")
-#     return render_template("transfer.html", sender=sender, reciver = reciver, form=form)
-
-
-
-
-
-# def create_transfer(accountA, accountB, transactionA, transactionB):
-#     accountA.Balance = accountA.Balance - transactionA.Amount
-#     accountB.Balance = accountB.Balance + transactionB.Amount
-
-#     transactionA.NewBalance = accountA.Balance
-#     transactionA.AccountId = accountA.Id
-#     transactionA.Date = date
-#     transactionA.Type = "Credit"
-#     transactionA.Operation = "Transfer"
-
-#     transactionB.NewBalance = accountB.Balance
-#     transactionB.AccountId = accountB.Id
-#     transactionB.Date = date
-#     transactionB.Type = "Debit"
-#     transactionB.Operation = "Transfer"
-
-#     accountA.Transactions.append(transactionA)
-#     accountB.Transactions.append(transactionB)
-
-
-# @app.route("/transfer/<id>", methods=['GET', 'POST'])
-# def Transfer(id):
-#     account = Account.query.filter_by(Id = id).first()
-#     customer = account.Customer
-#     form = TransferForm()
-#     if form.validate_on_submit():
-#         transaction_receiver = Transaction()
-#         transaction_sender = Transaction()
-#         ReceiverAccount = Account.query.filter_by(Id = form.Id.data).first()
-#         transaction_receiver.Amount= form.Amount.data
-#         transaction_sender.Amount = form.Amount.data
-
-#         create_transfer(account, ReceiverAccount, transaction_receiver, transaction_sender)
-#         db.session.add(account)
-#         db.session.add(ReceiverAccount)
-#         db.session.add(transaction_receiver)
-#         db.session.add(transaction_sender)
-#         db.session.commit()
-#         return redirect("/customer/" + str(account.CustomerId))
-#     return render_template("transfer.html", account = account, customer = customer, form = form)
-
-
-
-
 @app.route("/transfer/<id>", methods=['GET', 'POST'])
 # @auth_required()
 # @roles_accepted("Admin","Staff")
@@ -248,11 +128,23 @@ def Transfer(id):
     receiver = Account.query.filter_by(Id = form.Id.data).first()
     transactionSender = Transaction() 
     transactionReceiver = Transaction()
+    notAccount = ['Accountnumber do not exist']
+    notSame = ['You can not transfer money to the same account']
     large = ['Too large']
+    
+    
            
     if form.validate_on_submit(): 
         if account.Balance < form.Amount.data:
-            form.Amount.errors = form.Amount.errors + large
+            form.Amount.errors = form.Amount.errors + large 
+        elif receiver == None:
+            form.Id.errors = form.Id.errors + notAccount
+        elif receiver.Id == receiver.Id:
+            form.Id.errors = form.Id.errors + notSame
+       
+        # elif receiver not in [account]:
+        #     form.Id.errors = form.Id.errors + notAccount
+    
         else:
             transactionSender.Amount = form.Amount.data
             account.Balance = account.Balance - transactionSender.Amount

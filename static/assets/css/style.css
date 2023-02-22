@@ -157,18 +157,18 @@ h6,
 /* bakgroundpicture */
 #hero::after {
   content: "";
-  position: absolute;
+  position:fixed;
   left: 50%;
   top: 0;
   width: 130%;
   height: 95%;
-  background: linear-gradient(to right, rgba(41, 39, 39, 0.8), rgba(0, 0, 0, 0.756)), url("../img/backgroundpicturewebsite.jpg") center top no-repeat;
+  background: linear-gradient(to right, rgba(41, 39, 39, 0.8), rgba(0, 0, 0, 0.756)), url("../img/backgroundpicture2.jpg.jpg") center top no-repeat;
   z-index: 0;
-  border-radius: 0 0 50% 50%;
+  /* border-radius: 0 0 50% 50%; */
   transform: translateX(-50%) rotate(0deg);
 }
 /* remsan precis under bakgrundsbilden */
-#hero::before {
+/* #hero::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -180,7 +180,7 @@ h6,
   z-index: 0;
   border-radius: 0 0 50% 50%;
   transform: translateX(-50%) translateY(18px) rotate(2deg);
-}
+} */
 /* ser till så startpage är centrerad med all text där */
 #hero .carousel-container {
   display: flex;
@@ -240,7 +240,7 @@ h6,
   /* left: -99px; */
   right: 700px;
   font-size: 18px;
-  border: 3px rgb(255, 253, 253);
+  border: 3px rgb(60, 54, 54);
   padding: 10px;
   margin: 10px;
 }
@@ -281,20 +281,43 @@ table.tb2 th, table.tb2 td {
 table.table3 table, table.table3 th, table.table3 td {
   border-collapse: collapse;
   border-left: 30px;
+  align-content: 700px;
 }
 /* table startpage */
-table.tableSP table, table.tableSP th, table.tableSP td{
+table.tableSP table, table.tableSP th, table.tableSP td, table.tableSP tr{
+  column-width: 50px;
   border-collapse: collapse;
   text-align: left;
   color: rgb(217, 182, 165);
-  padding-right: 20px;
+  padding-right: 100px;
   padding-bottom: 10px;
+  padding-block: 5px;
   border: 1px;
   border-color: rgb(217, 182, 165);
   border-style: solid;
   border-left: 0px;
   border-right: 0px;
+  align-items: left;
+  size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
 }
+
+.tableSP {
+  margin-bottom: 600px;
+  margin-right: 1200px;
+  margin-top: 300px;
+}
+
+
+.welcome {
+  position: absolute;
+  padding-bottom: 700px;
+  margin-top: 300px;
+  padding-right: 0px;
+  padding-top: 500px;
+}
+
 
 table.tableTransfer table, table.tableTransfer th, table.tableTransfer td{
   border-collapse: collapse;

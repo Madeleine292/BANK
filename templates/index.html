@@ -109,42 +109,44 @@
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
+
           {% block content %}
 
+          <table class="tableSP" style="table-layout:fixed;">
+            <tr>
+              <th>Total balance:</th>
+              <td>{{ balance }} USD</td>
+            </tr>
+            <tr>
+              <th>Total customers:</th>
+              <td>{{ customers }}</td>
+            </tr>
+            <tr>
+              <th>Total accounts:</th>
+              <td>{{ allAccounts }}</td>
+            </tr>
+            <div class="welcome">
+              <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Laurentzèn bank</span></h2>
+              <p class="animate__animated animate__fadeInUp">Designed to make your job easier</p>
+              <a href="" class="btn-get-started animate__animated animate__fadeInUp">Sign in here</a>
+            </div>
 
 
-          <div>
-            <table class="tableSP">
-              <tr>
-                <th>Total balance:</th>
-                <td>{{ balance }} USD</td>
-              </tr>
-              <tr>
-                <th>Total customers:</th>
-                <td>{{ customers }}</td>
-              </tr>
-              <tr>
-                <th>Total accounts:</th>
-                <td>{{ allAccounts }}</td>
-              </tr>
-          </div>
+            {% endblock %}
 
 
 
-          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Laurentzèn bank</span></h2>
-          <p class="animate__animated animate__fadeInUp">Designed to make your job easier</p>
-          <a href="" class="btn-get-started animate__animated animate__fadeInUp">Sign in here</a>
 
-          {% endblock %}
-          
-          
+
 
         </div>
       </div>
 
     </div>
 
+
   </section><!-- End Hero -->
+
 
   <link href="../static/assets/css/style.css" rel="stylesheet">
 
@@ -168,6 +170,7 @@
 </body>
 
 </html>
+
 <!-- <div class="copyright">
   &copy; Copyright <strong><span>Madeleine Laurentzen</span></strong>. All Rights Reserved
 </div> -->
