@@ -100,17 +100,24 @@
       </nav><!-- .navbar -->
 
     </div>
+  
+
+
+
+
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex justify-cntent-center align-items-center">
     <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
+
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
 
           {% block content %}
+
 
           <table class="tableSP" style="table-layout:fixed;">
             <tr>
@@ -125,12 +132,17 @@
               <th>Total accounts:</th>
               <td>{{ allAccounts }}</td>
             </tr>
+
             <div class="welcome">
               <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Laurentzèn bank</span></h2>
               <p class="animate__animated animate__fadeInUp">Designed to make your job easier</p>
-              <a href="" class="btn-get-started animate__animated animate__fadeInUp">Sign in here</a>
-            </div>
 
+
+            {% if not current_user.is_authenticated %}
+         
+                 <a href="/admin" class="btn-get-started animate__animated animate__fadeInUp">Sign in here</a>
+
+            {% endif %}
 
             {% endblock %}
 
@@ -146,6 +158,25 @@
 
 
   </section><!-- End Hero -->
+
+
+<!-- 
+  <footer>
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Moderna</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>End Footer -->
+
+
+
+
+
+
 
 
   <link href="../static/assets/css/style.css" rel="stylesheet">
@@ -173,9 +204,9 @@
 
 <!-- <div class="copyright">
   &copy; Copyright <strong><span>Madeleine Laurentzen</span></strong>. All Rights Reserved
-</div> -->
+</div>
 
-<!-- <div class="col-lg-3 col-md-6 footer-contact">
+<div class="col-lg-3 col-md-6 footer-contact">
   <h4>Contact Us</h4>
   <p>
     A108 Adam Street <br>

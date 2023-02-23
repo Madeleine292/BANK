@@ -39,21 +39,48 @@ def startpage():
         balance += x.Balance
     return render_template("index.html", balance=balance,allAccounts=allAccounts,customers=customers )
 
-@app.route("/admin", methods=['GET', 'POST'])
+# @app.route("/admin", methods=['GET', 'POST'])
+# @auth_required()
+# @roles_accepted("Admin")
+# def admin():
+#     q = request.args.get('q', '')
+#     customers = Customer.query
+#     customers = customers.filter(
+#     Customer.Id.like( q )|
+#     Customer.NationalId.like( q ))
+#     if q == Customer.Id:
+#         return render_template("admin.html",  q=q, customers = customers)
+#     else:
+#         raise ValueError("Wrong customerID")
+
+
+
+@app.route("/admin")
 @auth_required()
 @roles_accepted("Admin")
 def admin():
     q = request.args.get('q', '')
-    customers = Customer.query
-    customers = customers.filter(
-    Customer.Id.like( q )|
-    Customer.NationalId.like( q ))
-    if q == Customer.Id:
-        return render_template("admin.html",  q=q, customers = customers)
-    else:
-        raise ValueError("Wrong customerID")
+    errorCustomer = [' Customer do not exist! ']
+    listOfCustomers = Customer.query
+    listOfCustomers = listOfCustomers.filter(
+        Customer.Id.like( q ) |
+        Customer.NationalId.like( q ))
+    # form = IdCustomerForm()
+    # receiver = Account.query.filter_by(Id = form.Id.data).first()
+    # notAccount = ['Accountnumber do not exist']
+    # if form.validate_on_submit(): 
+    #     if receiver == None:
+    #         form.Id.errors = form.Id.errors + notAccount
+    #         if q == listOfCustomers:
+    return render_template("admin.html",  q=q, listOfCustomers = listOfCustomers)
+            # else:
+                # raise ValueError ("wrong cust")
+                # return render_template("admin.html",  q=q, listOfCustomers = listOfCustomers, form = form)
 
 
+    # sortColumn = request.args.get('sortColumn', 'namn')
+    # sortOrder = request.args.get('sortOrder', 'asc')
+    
 
 
 
@@ -94,6 +121,8 @@ def deposit(id):
     return render_template("transactionspages/deposit.html", account=account, customer = customer, form = form, transaktion = transaktion)
 
 @app.route("/withdraw/<id>", methods=['GET', 'POST'])
+@auth_required()
+@roles_accepted("Admin")
 def withdraw(id):
     form = TransactionForm()
     account = Account.query.filter_by(Id = id).first()

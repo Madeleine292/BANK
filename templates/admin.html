@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block content %}
+
+<h2>Welcome admin</h2>
+<h1>Search on customers id or social security number</h1>
+
+</br>
+
+
+<form method="get">
+
+    <input type="text" placeholder="sök" value="{{ q }}" name="q">
+    <input class="btn3" type=submit value="Search">
+</form>
+
+{% for customer in listOfCustomers %}
+<table class="tb">
+    <tr>
+        <th>First name</th>
+        <td>{{ customer.GivenName }}</td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td>{{ customer.City }}</td>
+    </tr>
+    <tr>
+        <th>Id</th>
+        <td>{{ customer.Id }}</td>
+    </tr>
+    <tr>
+        <th>Social security number</th>
+        <td>{{ customer.NationalId }}</td>
+    </tr>
+    <tr>
+        <th>Streetaddress</th>
+        <td>{{ customer.Streetaddress }}</td>
+    </tr>
+</table>
+<td><a href="{{ url_for('customerpage.customerpage',id = customer.Id ) }}" class="btn3">More info</a></td>
+
+{% endfor %}
+
+{% endblock %}

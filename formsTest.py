@@ -44,7 +44,7 @@ def test_withdraw():
     newaccount.Balance = 0
     transaction = Transaction()
     transaction.Amount = 10
-    create_transaction(newaccount, transaction, "Payment")
+    create_transaction(newaccount, transaction, "Withdraw cash")
 
     assert newaccount.Balance == 10
     assert transaction.NewBalance == 10

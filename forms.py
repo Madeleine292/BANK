@@ -16,11 +16,16 @@ class NewCustomerForm(FlaskForm):
     Streetaddress = StringField('streetaddress', validators=[validators.DataRequired()])
     Zipcode = IntegerField('zipcode', validators=[validators.DataRequired()])
     Country = StringField('streetaddress', validators=[validators.DataRequired()])
-    NationalId = IntegerField('zipcode', validators=[validators.DataRequired()])
+    NationalId = IntegerField('NationalId', validators=[validators.DataRequired()])
     CountryCode = SelectField('countryCode',choices=[('46','+46'),('41','+41'),('42','+42')])
     Birthday = DateField('Birthday', validators=[validators.DataRequired()])
     EmailAddress = EmailField('emailaddress', validators=[validators.DataRequired(),emailContains])
     Telephone = StringField('Telephone', validators=[validators.DataRequired()])
+
+class IdCustomerForm(FlaskForm):
+    Id = IntegerField('Id', validators=[validators.DataRequired()])
+    NationalId = IntegerField('NationalId', validators=[validators.DataRequired()])
+
 
 class TransactionForm(FlaskForm):
     Amount = DecimalField('Amount', validators=[validators.DataRequired(), validators.NumberRange(min=1,max=5000)])
