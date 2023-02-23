@@ -57,7 +57,7 @@ def startpage():
 
 @app.route("/admin")
 @auth_required()
-@roles_accepted("Admin")
+@roles_accepted("Admin", "Staff")
 def admin():
     q = request.args.get('q', '')
     errorCustomer = [' Customer do not exist! ']
@@ -72,7 +72,7 @@ def admin():
     #     if receiver == None:
     #         form.Id.errors = form.Id.errors + notAccount
     #         if q == listOfCustomers:
-    return render_template("admin.html",  q=q, listOfCustomers = listOfCustomers)
+    return render_template("admin_staff_page.html",  q=q, listOfCustomers = listOfCustomers)
             # else:
                 # raise ValueError ("wrong cust")
                 # return render_template("admin.html",  q=q, listOfCustomers = listOfCustomers, form = form)

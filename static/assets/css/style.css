@@ -287,9 +287,16 @@ table.tb td:first-child {
 } */
 
 table.tb2 th, table.tb2 td {
-  text-align: center;
+  text-align: left;
   border-collapse: separate;
   border-spacing: 20px 15px;
+  padding: 2px 10px;
+  
+}
+
+
+.search {
+  margin-top: 250px;
 }
 
 table.table3 table, table.table3 th, table.table3 td {
