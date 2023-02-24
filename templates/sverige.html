@@ -9,32 +9,20 @@ Kundsida {{ customer.Country}} {{ customer.Surname }}
 
 {% endblock %}
 {% block content %}
-</table>
-</div>
-    <div class="column">
-<table class="tb">
-        <th>Accounts:</th>
-        <th>Balance:</th>
 
-
-        {% for account in a %}
-
-        <tr>
-            <th><a href="{{ url_for('customerpage.Transaktioner',id=account.Id ) }}">{{ account.AccountType }}, ID: {{ account.Id }}</a></th>
-            <td>{{ account.Balance }} :-</td>
-            <td><a href="{{ url_for('deposit',id=account.Id ) }}">Deposit</a></td>
-            <td><a href="{{ url_for('withdraw',id=account.Id ) }}">Withdraw</a></td>
-            <td><a href="{{ url_for('Transfer',id=account.Id ) }}">Transfer</a></td>
-            
-        </tr>
-        {% endfor %}
+{% if Country == Sweden %}
+<table class="tableSP" style="table-layout:fixed;">
+    <tr>
         <th>Total balance:</th>
-            <td>
-                {{ Saldo }} :-
-            </td>
-
-    </table>
-    
-</div>
-</div>
-{% endblock %}
+        <td>{{ balance }} USD</td>
+    </tr>
+    <tr>
+        <th>Total customers:</th>
+        <td>{{ customers }}</td>
+    </tr>
+    <tr>
+        <th>Total accounts:</th>
+        <td>{{ allAccounts }}</td>
+    </tr>
+</table>
+{% endif %}
