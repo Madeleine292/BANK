@@ -10,10 +10,10 @@ def emailContains(form, field):
 
 
 class NewCustomerForm(FlaskForm):
-    GivenName = StringField('name', validators=[validators.DataRequired()])
-    Surname = StringField('name', validators=[validators.DataRequired()])
-    City = StringField('city', validators=[validators.DataRequired()])
-    Streetaddress = StringField('streetaddress', validators=[validators.DataRequired()])
+    GivenName = StringField('name', validators=[validators.DataRequired(), validators.Length(max=50)])
+    Surname = StringField('name', validators=[validators.DataRequired(), validators.Length(max=50)])
+    City = StringField('city', validators=[validators.DataRequired(), validators.Length(max=50)])
+    Streetaddress = StringField('streetaddress', validators=[validators.DataRequired(), validators.Length(max=50)])
     Zipcode = IntegerField('zipcode', validators=[validators.DataRequired()])
     Country = StringField('streetaddress', validators=[validators.DataRequired()])
     NationalId = IntegerField('NationalId', validators=[validators.DataRequired()])

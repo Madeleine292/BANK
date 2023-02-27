@@ -10,7 +10,7 @@ Kundsida {{ customer.Country}} {{ customer.Surname }}
 {% endblock %}
 {% block content %}
 
-{% if Country == Sweden %}
+{% if customers.Country is Sverige %}
 <table class="tableSP" style="table-layout:fixed;">
     <tr>
         <th>Total balance:</th>
@@ -26,3 +26,4 @@ Kundsida {{ customer.Country}} {{ customer.Surname }}
     </tr>
 </table>
 {% endif %}
+{% endblock %}

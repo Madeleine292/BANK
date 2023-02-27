@@ -3,21 +3,21 @@ import barnum
 import random
 from datetime import datetime
 from datetime import timedelta
-from flask_security import hash_password
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
-from flask_security.models import fsqla_v3 as fsqla
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required
+# from flask_security.models import fsqla_v3 as fsqla
+from flask_security.utils import hash_password
 
 db = SQLAlchemy()
 
-fsqla.FsModels.set_db_info(db)
+# fsqla.FsModels.set_db_info(db)
 
-class Role(db.Model, fsqla.FsRoleMixin):
-    pass
+# class Role(db.Model, fsqla.FsRoleMixin):
+#     pass
 
-class User(db.Model, fsqla.FsUserMixin):
-    pass
+# class User(db.Model, fsqla.FsUserMixin):
+#     pass
 
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+# user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 class Customer(db.Model):
     __tablename__= "Customers"
@@ -62,7 +62,7 @@ class Transaction(db.Model):
 
 
 def seedData(app,db):
-    app.security = Security(app, user_datastore)
+    # app.security = Security(app, user_datastore)
     app.security.datastore.db.create_all()
     if not app.security.datastore.find_role("Admin"):
         app.security.datastore.create_role(name="Admin")
@@ -84,7 +84,7 @@ def seedData(app,db):
     app.security.datastore.db.session.commit()
 
     antal =  Customer.query.count()
-    while antal < 5000:
+    while antal < 500:
         customer = Customer()
         
         customer.GivenName, customer.Surname = barnum.create_name()

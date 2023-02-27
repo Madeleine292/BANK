@@ -8,13 +8,16 @@ import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
 from areas.customerpage import customersBluePrint
+from flask_security.models import fsqla_v3 as fsqla
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required
 
  
 
 date = datetime.now()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://Madde:hejsan12345!@python2022server.mysql.database.azure.com/bank'
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
 app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
@@ -25,7 +28,21 @@ db.init_app(app)
 migrate = Migrate(app,db)
 
 
+fsqla.FsModels.set_db_info(db)
+
+class Role(db.Model, fsqla.FsRoleMixin):
+    pass
+
+class User(db.Model, fsqla.FsUserMixin):
+    pass
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+
+app.security = Security(app, user_datastore)
+
+
 app.register_blueprint(customersBluePrint)
+
 
 
 
@@ -83,7 +100,17 @@ def admin():
     
 
 
+# @app.route("/")
+# def sverige():
+#     account = Account.query.filter(Account.Balance).all()
+#     balance = 0
+#     allAccounts = Account.query.count()
+#     customers = Customer.query.filter(Customer.Country == "Sverige").all()
+#     for x in account:
+#         balance += x.Balance
+#     return render_template("index.html", balance=balance,allAccounts=allAccounts,customers=customers )
 
+  
 
 
 
@@ -122,7 +149,7 @@ def deposit(id):
 
 @app.route("/withdraw/<id>", methods=['GET', 'POST'])
 @auth_required()
-@roles_accepted("Admin")
+@roles_accepted("Admin", "Staff")
 def withdraw(id):
     form = TransactionForm()
     account = Account.query.filter_by(Id = id).first()
@@ -216,8 +243,8 @@ def Transfer(id):
 
 if __name__  == "__main__":
     with app.app_context():
-        # upgrade()
+        upgrade()
 
         seedData(app, db)
-        app.run(debug=True)
+        app.run()
        

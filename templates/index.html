@@ -100,7 +100,7 @@
       </nav><!-- .navbar -->
 
     </div>
-  
+
 
 
 
@@ -118,29 +118,32 @@
 
           {% block content %}
 
+          
+            <table class="tableSP" style="table-layout:fixed;">
+              <tr>
+                <th>Total balance:</th>
+                <td>{{ balance }} USD</td>
+              </tr>
+              <tr>
+                <th>Total customers:</th>
+                <td>{{ customers }}</td>
+              </tr>
+              <tr>
+                <th>Total accounts:</th>
+                <td>{{ allAccounts }}</td>
+              </tr>
+          
+            
+    
 
-          <table class="tableSP" style="table-layout:fixed;">
-            <tr>
-              <th>Total balance:</th>
-              <td>{{ balance }} USD</td>
-            </tr>
-            <tr>
-              <th>Total customers:</th>
-              <td>{{ customers }}</td>
-            </tr>
-            <tr>
-              <th>Total accounts:</th>
-              <td>{{ allAccounts }}</td>
-            </tr>
-
-            <div class="welcome">
-              <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Laurentzèn bank</span></h2>
-              <p class="animate__animated animate__fadeInUp">Designed to make your job easier</p>
-
+          <div class="welcome">
+            <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Laurentzèn bank</span></h2>
+            <p class="animate__animated animate__fadeInUp">Designed to make your job easier</p>
+            <!-- <a href="/sverige" class="btn-get-started animate__animated animate__fadeInUp">Sverige</a> -->
 
             {% if not current_user.is_authenticated %}
-         
-                 <a href="/admin" class="btn-get-started animate__animated animate__fadeInUp">Sign in here</a>
+
+            <a href="/admin" class="btn-get-started animate__animated animate__fadeInUp">Sign in here</a>
 
             {% endif %}
 
@@ -151,16 +154,16 @@
 
 
 
+          </div>
         </div>
-      </div>
 
-    </div>
+      </div>
 
 
   </section><!-- End Hero -->
 
 
-<!-- 
+  <!-- 
   <footer>
     <div class="container">
       <div class="copyright">
