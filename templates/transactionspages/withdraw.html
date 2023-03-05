@@ -1,4 +1,7 @@
 {% extends "index.html" %}
+{% block title %}
+Withdraw
+{% endblock %}
 
 {% block content %}
 
@@ -11,27 +14,19 @@
 </tr>
 {% endfor %}
 
-
-{% block title %}
-Withdraw
-{% endblock %}
-
-
-
     {% for field, errors in form.errors.items() %}
     {{ form[field].label }}: {{ ', '.join(errors) }}
     </br>
     {% endfor %}
-  
-    <h3>
-      Fill out the form with the customers information. Then press "Save"
-   </h3>  
+    <h2>Withdraw</h2>
+    <h1 style="color:rgb(81, 62, 33)">
+      Choose the amount the customer wants do deposit. Then press "Save"
+    </h1>  
    <form method="post">
       {{ form.csrf_token }}
       {{ form.Amount(placeholder="Enter Amount") }}<br><br>
    
   
     <input type="submit" value="Save">
-    <p id="reminder">Remember to always check the customers<br> identification before adding<br> the customer to our system</p>
    </form>
 {% endblock %}    

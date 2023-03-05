@@ -15,6 +15,7 @@ body {
   font-family: "Open Sans", sans-serif;
   color: rgba(255, 255, 255, 0.895);
   
+  
 }
 
 a {
@@ -38,6 +39,38 @@ h6,
   font-size: 20px;
 }
 
+
+.tb  {
+  box-sizing: border-box;
+}
+
+
+.column {
+  float: left;
+  width: 40%;
+  padding-top: 40px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+
+}
+
+.row {
+  margin-left: 30%;
+  width: 100%
+}
+
+
+th,
+td {
+  text-align: left;
+  padding-right: 30px;
+  padding-bottom: 10px;
+}
+
 /* .H2
 .font-primary {
   font-size: 20px;
@@ -55,7 +88,6 @@ h6,
   max-height: 40px;
   margin-top: 80px;
 } */
-
 
 
 
@@ -279,9 +311,13 @@ h6,
   /* left: -99px; */
   right: 700px;
   font-size: 18px;
-  border: 3px rgb(60, 54, 54);
+  border:rgba(81, 61, 31, 0.59);
   padding: 10px;
   margin: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 20px;
+  
 }
 
 table.tb table, table.tb th, table.tb td {
@@ -290,8 +326,11 @@ table.tb table, table.tb th, table.tb td {
   border-left: 30px;
 }
 
+
+
 table.tb tr:nth-child(odd) {
   background-color: rgb(63, 63, 60, 0.3);
+  /* background-color: rgb(81, 62, 33, 0.3); */
 }
 
 table.tb th, table.tb td {

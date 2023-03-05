@@ -10,9 +10,9 @@ Account name
     Account name: 
 {{ account.AccountType }}
 </h1>
-<h2 style="color:rgb(81, 62, 33);font-size:25px;">
+<p style="color:rgb(81, 62, 33);font-size:25px;">
 Account number: {{ account.Id }} <br>Balance: {{account.Balance}}
-</h2>
+</p>
 <table class="table" style="color:white">
 <thead>
     <th>Id</th>
@@ -38,7 +38,7 @@ Account number: {{ account.Id }} <br>Balance: {{account.Balance}}
         <tr>
             <td>
                 {% if has_prev %}
-                <a class="btn"
+                <a class="btn3"
                     href="{{  url_for('customerpage.Transaktioner', id=account.Id, page=page - 1) }}">
                     Prev
                 </a>
@@ -50,7 +50,7 @@ Account number: {{ account.Id }} <br>Balance: {{account.Balance}}
             <td></td>
             <td>
                 {% if has_next %}
-                <a class="btn"
+                <a class="btn3"
                     href="{{  url_for('customerpage.Transaktioner',id=account.Id, page=page + 1) }}">
                     Next
                 </a>

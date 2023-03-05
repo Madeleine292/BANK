@@ -3,16 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import Customer, Account, Transaction
 from model import db, seedData, user_datastore
-from forms import NewCustomerForm, TransactionForm, TransferForm
+from forms import TransactionForm, TransferForm
 import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
 from areas.customerpage import customersBluePrint
-# from areas.transactionpage import transactionsBluePrint
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required
-
-
- 
 
 date = datetime.now()
 
@@ -32,9 +28,6 @@ app.security = Security(app, user_datastore)
 
 
 app.register_blueprint(customersBluePrint)
-
-
-# app.register_blueprint(transactionsBluePrint)
 
 
 @app.route("/")
@@ -65,11 +58,6 @@ def logout():
     logout_user()
     return redirect("/")
 
-@app.route("/adminblabla")
-@auth_required()
-@roles_accepted("Admin")
-def adminblblapage():
-    return render_template("adminblabla.html", activePage="secretPage" )
 
 @app.route("/deposit/<id>", methods=['GET', 'POST'])
 def deposit(id):
@@ -134,8 +122,6 @@ def Transfer(id):
     notSame = ['You can not transfer money to the same account']
     large = ['Too large']
     
-    
-           
     if form.validate_on_submit(): 
         if account.Balance < form.Amount.data:
             form.Amount.errors = form.Amount.errors + large 
@@ -177,8 +163,8 @@ def Transfer(id):
 
 if __name__  == "__main__":
     with app.app_context():
-        # upgrade()
+        upgrade()
 
         seedData(app, db)
-        app.run(debug=True)
+        app.run()
        

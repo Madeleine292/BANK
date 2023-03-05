@@ -12,39 +12,9 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
 {% endblock %}
 
 {% block content %}
-<style>
-    * {
-        box-sizing: border-box;
-    }
 
 
-    .column {
-        float: left;
-        width: 40%;
-        padding-top: 40px;
-    }
-
-    /* Clearfix (clear floats) */
-    .row::after {
-        content: "";
-        clear: both;
-
-    }
-
-    .row {
-        margin-left: 30%;
-        width: 100%
-    }
-
-
-    th,
-    td {
-        text-align: left;
-        padding-right: 30px;
-        padding-bottom: 10px
-    }
-</style>
-<h1>This is customer: {{ customer.Id }}:s personal information</h1>
+<h1 style="color:rgb(81, 62, 33)">This is customer: {{ customer.Id }}:s personal information</h1>
 
 <div class="row">
     <div class="column">
@@ -109,11 +79,11 @@ Kundsida {{ customer.GivenName}} {{ customer.Surname }}
             {% for account in a %}
 
             <tr>
-                <th><a href="{{ url_for('customerpage.Transaktioner',id=account.Id ) }}">{{ account.AccountType }}, ID: {{ account.Id }}</a></th>
+                <th><a href="{{ url_for('customerpage.Transaktioner',id=account.Id ) }}" class="btn3">{{ account.AccountType }}, ID: {{ account.Id }}</a></th>
                 <td>{{ account.Balance }} :-</td>
-                <td><a href="{{ url_for('deposit',id=account.Id ) }}">Deposit</a></td>
-                <td><a href="{{ url_for('withdraw',id=account.Id ) }}">Withdraw</a></td>
-                <td><a href="{{ url_for('Transfer',id=account.Id ) }}">Transfer</a></td>
+                <td><a href="{{ url_for('deposit',id=account.Id ) }}" class="btn3">Deposit</a></td>
+                <td><a href="{{ url_for('withdraw',id=account.Id ) }}" class="btn3">Withdraw</a></td>
+                <td><a href="{{ url_for('Transfer',id=account.Id ) }}" class="btn3">Transfer</a></td>
                 
             </tr>
             {% endfor %}

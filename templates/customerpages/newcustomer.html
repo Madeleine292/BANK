@@ -11,7 +11,7 @@ New customer
     </br>
     {% endfor %}
 
-    <h3>
+    <h3 style="color:rgb(81, 62, 33)">
       Fill out the form with the customers information. Then press "Save"
    </h3>  
    <form method="post">
@@ -27,11 +27,8 @@ New customer
       {{ form.EmailAddress(placeholder="Enter email") }}<br><br>
       {{ form.Telephone(placeholder="Enter Telephone") }}<br><br>
       
-
-  
-  
        {{ form.CountryCode() }}
     <input type="submit" value="Save">
-    <p id="reminder">Remember to always check the customers<br> identification before adding<br> the customer to our system</p>
+    <p style="color:rgb(81, 62, 33)"id="reminder">Remember to always check the customers<br> identification before adding<br> the customer to our system</p>
    </form>
 {% endblock %}    

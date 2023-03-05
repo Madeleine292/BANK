@@ -4,19 +4,12 @@ from flask_security import roles_accepted, auth_required
 from forms import NewCustomerForm
 from datetime import datetime
 
-
-# from .forms import NewNewsLetterForm
-# from flask import Flask,request, redirect
-# from models import db, Newsletter
-# import os
-
 customersBluePrint = Blueprint('customerpage',__name__)
 
 @customersBluePrint.route("/customers")
 @auth_required()
 @roles_accepted("Admin","Staff")
-def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
-    #plockar fram sakerna som kommer efteråt med request
+def customers(): 
     sortColumn = request.args.get('sortColumn', 'namn')
     sortOrder = request.args.get('sortOrder', 'asc')
     q = request.args.get('q', '')
