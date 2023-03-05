@@ -4,9 +4,6 @@ from wtforms.fields import IntegerField, SelectField, DecimalField
 from datetime import datetime
 from model import Account
 
-def emailContains(form, field):
-    if not field.data.endswith('.se'):
-        raise ValidationError('Måste sluta på .se dummer')
 
 
 class NewCustomerForm(FlaskForm):
@@ -16,15 +13,15 @@ class NewCustomerForm(FlaskForm):
     Streetaddress = StringField('streetaddress', validators=[validators.DataRequired(), validators.Length(max=50)])
     Zipcode = IntegerField('zipcode', validators=[validators.DataRequired()])
     Country = StringField('streetaddress', validators=[validators.DataRequired()])
-    NationalId = IntegerField('NationalId', validators=[validators.DataRequired()])
+    NationalId = StringField('NationalId', validators=[validators.DataRequired()])
     CountryCode = SelectField('countryCode',choices=[('46','+46'),('41','+41'),('42','+42')])
     Birthday = DateField('Birthday', validators=[validators.DataRequired()])
-    EmailAddress = EmailField('emailaddress', validators=[validators.DataRequired(),emailContains])
+    EmailAddress = EmailField('emailaddress', validators=[validators.DataRequired()])
     Telephone = StringField('Telephone', validators=[validators.DataRequired()])
 
 class IdCustomerForm(FlaskForm):
     Id = IntegerField('Id', validators=[validators.DataRequired()])
-    NationalId = IntegerField('NationalId', validators=[validators.DataRequired()])
+    NationalId = StringField('NationalId', validators=[validators.DataRequired()])
 
 
 class TransactionForm(FlaskForm):

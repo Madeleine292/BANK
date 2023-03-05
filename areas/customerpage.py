@@ -26,7 +26,9 @@ def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
 
     listOfCustomers = listOfCustomers.filter( 
         Customer.GivenName.like('%' + q + '%') |
-        Customer.City.like('%' + q + '%'))
+        Customer.Surname.like('%' + q + '%') |
+        Customer.Id.like('%' + q + '%') |
+        Customer.NationalId.like('%' + q + '%'))
 
     if sortColumn == "namn":
         if sortOrder == "asc":
@@ -72,33 +74,32 @@ def customers(): #/customers?sortColumn=namn&sortOrder=asc&q (anropet). Vi
 @auth_required()
 @roles_accepted("Admin","Staff")
 def newcustomer():
-    
     form = NewCustomerForm()
+    now = datetime.now()
+    customer = Customer()
+
     if form.validate_on_submit():
-        #spara i databas
-        now = datetime.now()
-        customer = Customer()
-        customer.GivenName = form.GivenName.data
-        customer.Surname = form.Surname.data
-        customer.City = form.City.data
-        customer.CountryCode = 1
-        customer.Telephone = form.Telephone.data
-        customer.Streetaddress = form.Streetaddress.data
-        customer.Zipcode = form.Zipcode.data
-        customer.Country = form.Country.data
-        customer.NationalId = form.NationalId.data
-        customer.Birthday = form.Birthday.data
-        customer.EmailAddress = form.EmailAddress.data
-        customer.TelephoneCountryCode = form.CountryCode.data
-        newaccount = Account()
-        newaccount.AccountType = "Personal"
-        newaccount.Created = now
-        newaccount.Balance = 0
-        customer.Accounts = [newaccount]
-        db.session.add(customer)
-        db.session.commit()
-        return redirect("/customers" )
-    return render_template("customerpages/newcustomer.html", form=form)
+            customer.GivenName = form.GivenName.data
+            customer.Surname = form.Surname.data
+            customer.City = form.City.data
+            customer.CountryCode = 1
+            customer.Telephone = form.Telephone.data
+            customer.Streetaddress = form.Streetaddress.data
+            customer.Zipcode = form.Zipcode.data
+            customer.Country = form.Country.data
+            customer.NationalId = form.NationalId.data
+            customer.Birthday = form.Birthday.data
+            customer.EmailAddress = form.EmailAddress.data
+            customer.TelephoneCountryCode = form.CountryCode.data
+            newaccount = Account()
+            newaccount.AccountType = "Personal"
+            newaccount.Created = now
+            newaccount.Balance = 0
+            customer.Accounts = [newaccount]
+            db.session.add(customer)
+            db.session.commit()
+            return redirect("/customer/" + str(customer.Id))
+    return render_template("customerpages/newcustomer.html", form=form, now = now, customer = customer)
 
 
 @customersBluePrint.route("/editcustomer/<id>", methods=['GET', 'POST'])

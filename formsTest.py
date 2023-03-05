@@ -1,10 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-import barnum
-import random
 from datetime import datetime
-from datetime import timedelta
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
-from flask_security.models import fsqla_v3 as fsqla
 from model import Account, Transaction
 
 def test_deposit():
@@ -35,33 +29,33 @@ def create_transaction(account, transaction, operation):
     transaction.Operation = operation
     account.Transactions.append(transaction)
 
-# def test_withdraw():
-#     newaccount = Account()
-#     newaccount.Id = 3
-#     newaccount.Balance = 20
-#     transaction = Transaction()
-#     transaction.Amount = 10
-#     create_transaction(newaccount, transaction, "Withdraw")
+def test_withdraw():
+    newaccount = Account()
+    newaccount.Id = 3
+    newaccount.Balance = 20
+    transaction = Transaction()
+    transaction.Amount = 10
+    create_transaction(newaccount, transaction, "Withdraw")
 
-#     assert newaccount.Balance == 10
-#     assert transaction.NewBalance == 10
-#     assert newaccount.Id == transaction.AccountId
-#     assert transaction.Date != None
-#     assert transaction.Type == "Credit"
-#     assert transaction.Operation == "Withdraw"
-#     assert len(newaccount.Transactions) < newaccount.Balance
-#     assert transaction in newaccount.Transactions
+    assert newaccount.Balance == 10
+    assert transaction.NewBalance == 10
+    assert newaccount.Id == transaction.AccountId
+    assert transaction.Date != None
+    assert transaction.Type == "Credit"
+    assert transaction.Operation == "Withdraw"
+    assert len(newaccount.Transactions) < newaccount.Balance
+    assert transaction in newaccount.Transactions
 
-# def create_transaction(account, transaction, operation):
-#     now = datetime.now()
+def create_transaction(account, transaction, operation):
+    now = datetime.now()
 
-#     account.Balance = account.Balance - transaction.Amount
-#     transaction.NewBalance = account.Balance
-#     transaction.AccountId = account.Id
-#     transaction.Date = now
-#     transaction.Type = "Credit"
-#     transaction.Operation = operation
-#     account.Transactions.append(transaction)
+    account.Balance = account.Balance - transaction.Amount
+    transaction.NewBalance = account.Balance
+    transaction.AccountId = account.Id
+    transaction.Date = now
+    transaction.Type = "Credit"
+    transaction.Operation = operation
+    account.Transactions.append(transaction)
 
 
 def test_transfer():

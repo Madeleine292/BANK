@@ -2,22 +2,23 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
 from model import Customer, Account, Transaction
-from model import db, seedData
+from model import db, seedData, user_datastore
 from forms import NewCustomerForm, TransactionForm, TransferForm
 import os
 from flask_security import roles_accepted, auth_required, logout_user
 from datetime import datetime
 from areas.customerpage import customersBluePrint
-from flask_security.models import fsqla_v3 as fsqla
+# from areas.transactionpage import transactionsBluePrint
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required
+
 
  
 
 date = datetime.now()
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://Madde:hejsan12345!@python2022server.mysql.database.azure.com/bank'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:my-secret-pw@localhost/Bank'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://Madde:hejsan12345!@python2022server.mysql.database.azure.com/bank'
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
 app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
@@ -27,23 +28,13 @@ db.app = app
 db.init_app(app)
 migrate = Migrate(app,db)
 
-
-fsqla.FsModels.set_db_info(db)
-
-class Role(db.Model, fsqla.FsRoleMixin):
-    pass
-
-class User(db.Model, fsqla.FsUserMixin):
-    pass
-
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-
 app.security = Security(app, user_datastore)
 
 
 app.register_blueprint(customersBluePrint)
 
 
+# app.register_blueprint(transactionsBluePrint)
 
 
 @app.route("/")
@@ -56,22 +47,6 @@ def startpage():
         balance += x.Balance
     return render_template("index.html", balance=balance,allAccounts=allAccounts,customers=customers )
 
-# @app.route("/admin", methods=['GET', 'POST'])
-# @auth_required()
-# @roles_accepted("Admin")
-# def admin():
-#     q = request.args.get('q', '')
-#     customers = Customer.query
-#     customers = customers.filter(
-#     Customer.Id.like( q )|
-#     Customer.NationalId.like( q ))
-#     if q == Customer.Id:
-#         return render_template("admin.html",  q=q, customers = customers)
-#     else:
-#         raise ValueError("Wrong customerID")
-
-
-
 @app.route("/admin")
 @auth_required()
 @roles_accepted("Admin", "Staff")
@@ -82,37 +57,8 @@ def admin():
     listOfCustomers = listOfCustomers.filter(
         Customer.Id.like( q ) |
         Customer.NationalId.like( q ))
-    # form = IdCustomerForm()
-    # receiver = Account.query.filter_by(Id = form.Id.data).first()
-    # notAccount = ['Accountnumber do not exist']
-    # if form.validate_on_submit(): 
-    #     if receiver == None:
-    #         form.Id.errors = form.Id.errors + notAccount
-    #         if q == listOfCustomers:
     return render_template("admin_staff_page.html",  q=q, listOfCustomers = listOfCustomers)
-            # else:
-                # raise ValueError ("wrong cust")
-                # return render_template("admin.html",  q=q, listOfCustomers = listOfCustomers, form = form)
-
-
-    # sortColumn = request.args.get('sortColumn', 'namn')
-    # sortOrder = request.args.get('sortOrder', 'asc')
     
-
-
-# @app.route("/")
-# def sverige():
-#     account = Account.query.filter(Account.Balance).all()
-#     balance = 0
-#     allAccounts = Account.query.count()
-#     customers = Customer.query.filter(Customer.Country == "Sverige").all()
-#     for x in account:
-#         balance += x.Balance
-#     return render_template("index.html", balance=balance,allAccounts=allAccounts,customers=customers )
-
-  
-
-
 
 @app.route("/logout")
 def logout():
@@ -176,8 +122,8 @@ def withdraw(id):
     return render_template("transactionspages/withdraw.html", account=account, customer = customer, form = form, transaktion = transaktion, large = large)
 
 @app.route("/transfer/<id>", methods=['GET', 'POST'])
-# @auth_required()
-# @roles_accepted("Admin","Staff")
+@auth_required()
+@roles_accepted("Admin","Staff")
 def Transfer(id):
     form =TransferForm()
     account = Account.query.filter_by(Id = id).first()
@@ -195,12 +141,8 @@ def Transfer(id):
             form.Amount.errors = form.Amount.errors + large 
         elif receiver == None:
             form.Id.errors = form.Id.errors + notAccount
-        elif receiver.Id == receiver.Id:
+        elif receiver.Id == account.Id:
             form.Id.errors = form.Id.errors + notSame
-       
-        # elif receiver not in [account]:
-        #     form.Id.errors = form.Id.errors + notAccount
-    
         else:
             transactionSender.Amount = form.Amount.data
             account.Balance = account.Balance - transactionSender.Amount
@@ -233,18 +175,10 @@ def Transfer(id):
                                                     transactionSender=transactionSender,
                                                     )
 
-
-
-
-
-
-
-
-
 if __name__  == "__main__":
     with app.app_context():
-        upgrade()
+        # upgrade()
 
         seedData(app, db)
-        app.run()
+        app.run(debug=True)
        

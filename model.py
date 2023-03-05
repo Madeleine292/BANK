@@ -3,21 +3,22 @@ import barnum
 import random
 from datetime import datetime
 from datetime import timedelta
-from flask_security import Security, SQLAlchemyUserDatastore, auth_required
-# from flask_security.models import fsqla_v3 as fsqla
-from flask_security.utils import hash_password
+from flask_security import hash_password
+from flask_security import Security, SQLAlchemyUserDatastore, hash_password
+from flask_security.models import fsqla_v3 as fsqla
+
 
 db = SQLAlchemy()
 
-# fsqla.FsModels.set_db_info(db)
+fsqla.FsModels.set_db_info(db)
 
-# class Role(db.Model, fsqla.FsRoleMixin):
-#     pass
+class Role(db.Model, fsqla.FsRoleMixin):
+    pass
 
-# class User(db.Model, fsqla.FsUserMixin):
-#     pass
+class User(db.Model, fsqla.FsUserMixin):
+    pass
 
-# user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 class Customer(db.Model):
     __tablename__= "Customers"
